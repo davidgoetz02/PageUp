@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PageUp — Ihr Angebot</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2318181b'/><text x='4' y='24' font-family='Georgia,serif' font-weight='900' font-size='20' fill='white'>P</text><text x='15' y='24' font-family='Georgia,serif' font-weight='900' font-size='20' fill='white'>U</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink:      #18181b;
+    --mid:      #71717a;
+    --border:   #e4e4e7;
+    --surface:  #f4f4f5;
+    --white:    #ffffff;
+    --amber:    #d97706;
+    --amber-lt: #fef3c7;
+    --amber-bd: #fde68a;
+    --green:    #16a34a;
+    --green-lt: #dcfce7;
+    --font-h:   'Fraunces', serif;
+    --font-b:   'DM Sans', sans-serif;
+    --r: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.07);
+    --shadow-lg: 0 4px 6px rgba(0,0,0,0.04), 0 24px 60px rgba(0,0,0,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--surface);
+    color: var(--ink);
+    font-family: var(--font-b);
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── LANG BAR ── */
+  .topbar {
+    background: var(--ink);
+    padding: 0.6rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .topbar-logo {
+    font-family: var(--font-h);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: white;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    font-variation-settings: 'opsz' 20;
+  }
+
+  .topbar-logo em { font-style: italic; font-weight: 400; color: var(--amber); }
+
+  .lang-switch {
+    display: flex;
+    gap: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 3px;
+  }
+
+  .lb {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-family: var(--font-b);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lb.active { background: white; color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--amber-lt);
+    color: var(--amber);
+    border: 1px solid var(--amber-bd);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+  .hero h1 {
+    font-family: var(--font-h);
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: white;
+    margin-bottom: 1.2rem;
+    font-variation-settings: 'opsz' 60;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--amber);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--amber);
+    color: var(--ink);
+    text-decoration: none;
+    font-family: var(--font-b);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.85rem 2rem;
+    border-radius: var(--r);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .hero-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ── SECTION HELPERS ── */
+  .section {
+    padding: 5rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    padding: 5rem 2rem;
+  }
+
+  .label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .label::before {
+    content: '';
+    width: 1.5rem;
+    height: 2px;
+    background: var(--amber);
+    flex-shrink: 0;
+  }
+
+  .label-center {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .label-center::before { display: none; }
+
+  h2.title {
+    font-family: var(--font-h);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.12;
+    margin-bottom: 0.8rem;
+    font-variation-settings: 'opsz' 40;
+  }
+
+  .subtitle {
+    color: var(--mid);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    max-width: 520px;
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .subtitle.center { text-align: center; max-width: 540px; margin: 0 auto 3rem; }
+
+  /* ── BENEFITS STRIP ── */
+  .benefits-strip {
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .benefits-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .benefit {
+    padding: 2rem 2rem 2rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .benefit:last-child { border-right: none; }
+
+  .benefit-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .benefit h3 {
+    font-family: var(--font-h);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-variation-settings: 'opsz' 16;
+  }
+
+  .benefit p {
+    font-size: 0.8rem;
+    color: var(--mid);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── PROCESS ── */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .process-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .process-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--amber);
+    opacity: 0.4;
+  }
+
+  .process-n {
+    font-family: var(--font-h);
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--amber);
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 0.8rem;
+    font-variation-settings: 'opsz' 48;
+  }
+
+  .process-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--amber-lt);
+    border: 1px solid var(--amber-bd);
+    color: var(--amber);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+  }
+
+  .process-card h3 {
+    font-family: var(--font-h);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    font-variation-settings: 'opsz' 18;
+  }
+
+  .process-card p {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── PRICING ── */
+  .pricing-bg {
+    background: var(--ink);
+    padding: 5rem 2rem;
+  }
+
+  .pricing-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .pricing-inner .title { color: white; }
+  .pricing-inner .subtitle { color: rgba(255,255,255,0.45); }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .plan {
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: var(--r);
+    padding: 1.8rem;
+    transition: transform 0.25s, border-color 0.25s;
+  }
+
+  .plan:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.25); }
+
+  .plan.hi {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: var(--ink);
+  }
+
+  .plan.hi:hover { transform: translateY(-3px); }
+
+  .plan.dashed {
+    border-style: dashed;
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  .plan-badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--amber);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .plan-name {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 0.3rem;
+  }
+
+  .plan.hi .plan-name { color: rgba(26,26,26,0.6); }
+
+  .plan-price {
+    font-family: var(--font-h);
+    font-weight: 900;
+    font-size: 2.5rem;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: white;
+    font-variation-settings: 'opsz' 36;
+  }
+
+  .plan.hi .plan-price { color: var(--ink); }
+
+  .plan-period {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+
+  .plan.hi .plan-period { color: rgba(26,26,26,0.5); }
+
+  .plan-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 1.2rem;
+  }
+
+  .plan.hi .plan-divider { background: rgba(26,26,26,0.15); }
+
+  .plan-feats {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-feats li {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.65);
+    padding-left: 1.1rem;
+    position: relative;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .plan.hi .plan-feats li { color: rgba(26,26,26,0.75); }
+
+  .plan-feats li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--amber);
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  .plan.hi .plan-feats li::before { color: var(--ink); }
+
+  .plan-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-family: var(--font-b);
+    font-size: 0.82rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.8);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .plan-btn:hover { background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.4); }
+
+  .plan.hi .plan-btn {
+    background: var(--ink);
+    color: white;
+    border-color: transparent;
+  }
+
+  .plan.hi .plan-btn:hover { opacity: 0.85; }
+
+  .plan.dashed .plan-btn {
+    border-style: dashed;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── BIG BENEFITS LIST ── */
+  .benefits-section {
+    padding: 5rem 2rem;
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .benefits-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .benefits-left h2 { margin-bottom: 1rem; }
+  .benefits-left p { color: var(--mid); font-size: 0.95rem; line-height: 1.8; font-weight: 300; margin-bottom: 2rem; }
+
+  .benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .benefit-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .benefit-check {
+    width: 22px; height: 22px;
+    background: var(--amber-lt);
+    border: 1px solid var(--amber-bd);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 0.65rem;
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  .benefit-text strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+    font-family: var(--font-h);
+    font-variation-settings: 'opsz' 14;
+  }
+
+  .benefit-text span {
+    font-size: 0.82rem;
+    color: var(--mid);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* Right side comparison */
+  .compare-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+
+  .compare-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-col-h {
+    padding: 1rem 1.2rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-right: 1px solid var(--border);
+  }
+
+  .compare-col-h:last-child { border-right: none; color: var(--amber); }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-row:last-child { border-bottom: none; }
+
+  .compare-cell {
+    padding: 0.85rem 1.2rem;
+    font-size: 0.82rem;
+    border-right: 1px solid var(--border);
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .compare-cell:last-child {
+    border-right: none;
+    background: white;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .compare-cell.bad { color: var(--mid); text-decoration: line-through; text-decoration-color: #f87171; }
+
+  /* ── TESTIMONIALS / REFERENCES ── */
+  .refs-section {
+    padding: 5rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .refs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .ref-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    transition: box-shadow 0.25s, transform 0.25s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .ref-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+  }
+
+  .ref-top {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .ref-emoji {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .ref-card h3 {
+    font-family: var(--font-h);
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-variation-settings: 'opsz' 14;
+  }
+
+  .ref-card p {
+    font-size: 0.8rem;
+    color: var(--mid);
+    line-height: 1.65;
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .ref-cat {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.55rem;
+    border-radius: 4px;
+    align-self: flex-start;
+  }
+
+  .ref-link {
+    font-size: 0.75rem;
+    color: var(--amber);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* ── FAQ ── */
+  .faq-section {
+    padding: 5rem 2rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    padding: 1.2rem 1.5rem;
+    font-family: var(--font-h);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-variation-settings: 'opsz' 14;
+    user-select: none;
+  }
+
+  .faq-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    transition: transform 0.25s, background 0.25s;
+    color: var(--mid);
+    font-weight: 300;
+  }
+
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+    background: var(--amber-lt);
+    border-color: var(--amber-bd);
+    color: var(--amber);
+  }
+
+  .faq-a {
+    display: none;
+    padding: 0 1.5rem 1.2rem;
+    font-size: 0.88rem;
+    color: var(--mid);
+    line-height: 1.8;
+    font-weight: 300;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .faq-item.open .faq-a { display: block; }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    background: var(--ink);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .cta-footer-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+
+  .cta-footer h2 {
+    font-family: var(--font-h);
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: white;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    font-variation-settings: 'opsz' 48;
+  }
+
+  .cta-footer h2 em { font-style: italic; font-weight: 400; color: var(--amber); }
+
+  .cta-footer p {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .cta-footer-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .btn-amber {
+    background: var(--amber);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: var(--r);
+    font-family: var(--font-b);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+    display: inline-block;
+  }
+
+  .btn-amber:hover { opacity: 0.85; }
+
+  .btn-ghost-w {
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: var(--r);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    font-family: var(--font-b);
+    font-size: 0.88rem;
+    font-weight: 400;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-ghost-w:hover { border-color: rgba(255,255,255,0.5); color: white; }
+
+  .contact-row {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .contact-item strong { color: rgba(255,255,255,0.7); }
+
+  .site-footer {
+    background: #0f0f11;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .site-footer p { font-size: 0.72rem; color: rgba(255,255,255,0.2); }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .benefits-inner { grid-template-columns: repeat(2, 1fr); }
+    .process-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .plans { grid-template-columns: repeat(2, 1fr); }
+    .benefits-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .refs-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .benefits-inner { grid-template-columns: 1fr; }
+    .plans { grid-template-columns: 1fr; }
+    .compare-header, .compare-row { grid-template-columns: 1fr 1fr; }
+    .topbar { padding: 0.6rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar-logo"><em>Page</em>Up</a>
+  <div class="lang-switch">
+    <button class="lb" onclick="setLang('en')">EN</button>
+    <button class="lb active" onclick="setLang('de')">DE</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow" data-en="Your personal offer — prepared just for you" data-de="Ihr persönliches Angebot – speziell für Sie vorbereitet">Ihr persönliches Angebot – speziell für Sie vorbereitet</div>
+    <h1 data-en="Your website,<br><em>ready to go.</em>" data-de="Ihre Website,<br><em>startklar.</em>">Ihre Website,<br><em>startklar.</em></h1>
+    <p class="hero-sub" data-en="Thank you for the conversation. Here's everything you need to know about PageUp — your new website, how it works, what it costs, and why it's the smartest move for your business." data-de="Danke für das Gespräch. Hier finden Sie alles, was Sie über PageUp wissen müssen – Ihre neue Website, wie es funktioniert, was es kostet und warum es die beste Entscheidung für Ihr Unternehmen ist.">Danke für das Gespräch. Hier finden Sie alles, was Sie über PageUp wissen müssen – Ihre neue Website, wie es funktioniert, was es kostet und warum es die beste Entscheidung für Ihr Unternehmen ist.</p>
+    <a href="#cta" class="hero-cta" data-en="I'm ready — let's start →" data-de="Ich bin dabei – loslegen →">Ich bin dabei – loslegen →</a>
+  </div>
+</section>
+
+<!-- BENEFITS STRIP -->
+<div class="benefits-strip">
+  <div class="benefits-inner">
+    <div class="benefit reveal">
+      <div class="benefit-icon">💶</div>
+      <h3 data-en="No upfront costs" data-de="Keine Vorabkosten">Keine Vorabkosten</h3>
+      <p data-en="No setup fee, no invoice on day one. Pure subscription from the start." data-de="Keine Einrichtungsgebühr, keine Rechnung am ersten Tag. Reines Abo von Anfang an.">Keine Einrichtungsgebühr, keine Rechnung am ersten Tag. Reines Abo von Anfang an.</p>
+    </div>
+    <div class="benefit reveal" style="transition-delay:.07s">
+      <div class="benefit-icon">⚡</div>
+      <h3 data-en="Online in 7 days" data-de="Online in 7 Tagen">Online in 7 Tagen</h3>
+      <p data-en="From approval to live website in under a week. No delays, no excuses." data-de="Von der Genehmigung bis zur fertigen Website in unter einer Woche. Keine Verzögerungen.">Von der Genehmigung bis zur fertigen Website in unter einer Woche. Keine Verzögerungen.</p>
+    </div>
+    <div class="benefit reveal" style="transition-delay:.14s">
+      <div class="benefit-icon">🔒</div>
+      <h3 data-en="Hosting & updates included" data-de="Hosting & Updates inklusive">Hosting & Updates inklusive</h3>
+      <p data-en="Everything is included in your monthly fee. No technical headaches, ever." data-de="Alles in Ihrer monatlichen Gebühr enthalten. Nie wieder technische Kopfschmerzen.">Alles in Ihrer monatlichen Gebühr enthalten. Nie wieder technische Kopfschmerzen.</p>
+    </div>
+    <div class="benefit reveal" style="transition-delay:.21s">
+      <div class="benefit-icon">📞</div>
+      <h3 data-en="A real person, always" data-de="Immer ein echter Ansprechpartner">Immer ein echter Ansprechpartner</h3>
+      <p data-en="No chatbots, no ticket systems. You call us, we answer." data-de="Kein Chatbot, kein Ticketsystem. Sie rufen an, wir melden uns.">Kein Chatbot, kein Ticketsystem. Sie rufen an, wir melden uns.</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section">
+  <div class="label reveal" data-en="The process" data-de="Der Ablauf">Der Ablauf</div>
+  <h2 class="title reveal" data-en="From today to online<br>in three simple steps." data-de="Von heute bis online<br>in drei einfachen Schritten.">Von heute bis online<br>in drei einfachen Schritten.</h2>
+  <p class="subtitle reveal" data-en="We do all the work. You just say yes." data-de="Wir erledigen die ganze Arbeit. Sie sagen einfach ja.">Wir erledigen die ganze Arbeit. Sie sagen einfach ja.</p>
+
+  <div class="process-grid reveal">
+    <div class="process-card">
+      <div class="process-n">01</div>
+      <div class="process-tag" data-en="Day 1 — Free" data-de="Tag 1 — Kostenlos">Tag 1 — Kostenlos</div>
+      <h3 data-en="You see your website" data-de="Sie sehen Ihre Website">Sie sehen Ihre Website</h3>
+      <p data-en="We've already built a working preview of your website. You look at it, tell us what you'd change, and decide — zero obligation, zero cost." data-de="Wir haben bereits eine funktionierende Vorschau Ihrer Website erstellt. Sie schauen sie an, sagen uns was Sie ändern möchten, und entscheiden – völlig unverbindlich und kostenlos.">Wir haben bereits eine funktionierende Vorschau Ihrer Website erstellt. Sie schauen sie an, sagen uns was Sie ändern möchten, und entscheiden – völlig unverbindlich und kostenlos.</p>
+    </div>
+    <div class="process-card">
+      <div class="process-n">02</div>
+      <div class="process-tag" data-en="Days 2–7" data-de="Tage 2–7">Tage 2–7</div>
+      <h3 data-en="We build the real thing" data-de="Wir bauen die echte Website">Wir bauen die echte Website</h3>
+      <p data-en="Our technical team builds your full production website — fast, mobile-optimised, SEO-ready, and built to last. You're online within a week." data-de="Unser technisches Team baut Ihre vollständige Website – schnell, mobiloptimiert, SEO-bereit und dauerhaft. Sie sind innerhalb einer Woche online.">Unser technisches Team baut Ihre vollständige Website – schnell, mobiloptimiert, SEO-bereit und dauerhaft. Sie sind innerhalb einer Woche online.</p>
+    </div>
+    <div class="process-card">
+      <div class="process-n">03</div>
+      <div class="process-tag" data-en="Every month" data-de="Jeden Monat">Jeden Monat</div>
+      <h3 data-en="We keep it fresh" data-de="Wir halten alles aktuell">Wir halten alles aktuell</h3>
+      <p data-en="Hosting, security, updates, and small changes are all included in your monthly fee. Your website stays professional without any effort from you." data-de="Hosting, Sicherheit, Updates und kleine Änderungen sind alles in Ihrer monatlichen Gebühr enthalten. Ihre Website bleibt professionell ohne Ihren Aufwand.">Hosting, Sicherheit, Updates und kleine Änderungen sind alles in Ihrer monatlichen Gebühr enthalten. Ihre Website bleibt professionell ohne Ihren Aufwand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="pricing-bg">
+  <div class="pricing-inner">
+    <div class="label reveal" style="color:var(--amber-lt);" data-en="Pricing" data-de="Preise">Preise</div>
+    <h2 class="title reveal" data-en="One simple price.<br>Everything included." data-de="Ein einfacher Preis.<br>Alles inklusive.">Ein einfacher Preis.<br>Alles inklusive.</h2>
+    <p class="subtitle reveal" data-en="No setup fees. No hidden costs. Cancel anytime." data-de="Keine Einrichtungsgebühr. Keine versteckten Kosten. Jederzeit kündbar.">Keine Einrichtungsgebühr. Keine versteckten Kosten. Jederzeit kündbar.</p>
+
+    <div class="plans reveal">
+      <div class="plan">
+        <div class="plan-name" data-en="Starter" data-de="Starter">Starter</div>
+        <div class="plan-price">€39</div>
+        <div class="plan-period" data-en="per month" data-de="pro Monat">pro Monat</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li data-en="1 scroll page" data-de="1 Scroll-Seite">1 Scroll-Seite</li>
+          <li data-en="Mobile-optimised" data-de="Mobiloptimiert">Mobiloptimiert</li>
+          <li data-en="Hosting & SSL" data-de="Hosting & SSL">Hosting & SSL</li>
+          <li data-en="Contact form" data-de="Kontaktformular">Kontaktformular</li>
+          <li data-en="1 update / month" data-de="1 Update / Monat">1 Update / Monat</li>
+          <li data-en="Email support" data-de="E-Mail-Support">E-Mail-Support</li>
+        </ul>
+        <a href="#cta" class="plan-btn" data-en="Get started" data-de="Jetzt starten">Jetzt starten</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Professional</div>
+        <div class="plan-price">€69</div>
+        <div class="plan-period" data-en="per month" data-de="pro Monat">pro Monat</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li data-en="Up to 5 pages" data-de="Bis zu 5 Seiten">Bis zu 5 Seiten</li>
+          <li data-en="Custom design & branding" data-de="Individuelles Design">Individuelles Design</li>
+          <li data-en="Hosting & SSL" data-de="Hosting & SSL">Hosting & SSL</li>
+          <li data-en="Contact forms & maps" data-de="Formulare & Karten">Formulare & Karten</li>
+          <li data-en="2 updates / month" data-de="2 Updates / Monat">2 Updates / Monat</li>
+          <li data-en="Basic SEO" data-de="Basis-SEO">Basis-SEO</li>
+        </ul>
+        <a href="#cta" class="plan-btn" data-en="Get started" data-de="Jetzt starten">Jetzt starten</a>
+      </div>
+
+      <div class="plan hi">
+        <div class="plan-badge" data-en="Most popular" data-de="Am beliebtesten">Am beliebtesten</div>
+        <div class="plan-name">Business</div>
+        <div class="plan-price">€119</div>
+        <div class="plan-period" data-en="per month" data-de="pro Monat">pro Monat</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li data-en="Up to 10 pages" data-de="Bis zu 10 Seiten">Bis zu 10 Seiten</li>
+          <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Individuelles Design & Branding</li>
+          <li data-en="Hosting & SSL" data-de="Hosting & SSL">Hosting & SSL</li>
+          <li data-en="Forms, maps & gallery" data-de="Formulare, Karten & Galerie">Formulare, Karten & Galerie</li>
+          <li data-en="4 updates / month" data-de="4 Updates / Monat">4 Updates / Monat</li>
+          <li data-en="Full SEO optimisation" data-de="Vollständige SEO-Optimierung">Vollständige SEO-Optimierung</li>
+          <li data-en="Analytics dashboard" data-de="Analytics-Dashboard">Analytics-Dashboard</li>
+          <li data-en="Priority support" data-de="Prioritätssupport">Prioritätssupport</li>
+        </ul>
+        <a href="#cta" class="plan-btn" data-en="Get started" data-de="Jetzt starten">Jetzt starten</a>
+      </div>
+
+      <div class="plan dashed">
+        <div class="plan-name" data-en="Enterprise" data-de="Enterprise">Enterprise</div>
+        <div class="plan-price" style="font-size:1.6rem;padding-top:0.2rem;" data-en="On request" data-de="Auf Anfrage">Auf Anfrage</div>
+        <div class="plan-period" data-en="custom quote" data-de="individuelles Angebot">individuelles Angebot</div>
+        <div class="plan-divider"></div>
+        <ul class="plan-feats">
+          <li data-en="Unlimited pages" data-de="Unbegrenzte Seiten">Unbegrenzte Seiten</li>
+          <li data-en="Webshop / booking system" data-de="Webshop / Buchungssystem">Webshop / Buchungssystem</li>
+          <li data-en="Unlimited updates" data-de="Unbegrenzte Updates">Unbegrenzte Updates</li>
+          <li data-en="Multi-language" data-de="Mehrsprachig">Mehrsprachig</li>
+          <li data-en="Full SEO + Analytics" data-de="Vollständiges SEO + Analytics">Vollständiges SEO + Analytics</li>
+          <li data-en="Dedicated account manager" data-de="Persönlicher Ansprechpartner">Persönlicher Ansprechpartner</li>
+        </ul>
+        <a href="#cta" class="plan-btn" data-en="Get a quote" data-de="Angebot anfragen">Angebot anfragen</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FULL BENEFITS + COMPARISON -->
+<section class="benefits-section">
+  <div class="benefits-wrap">
+    <div class="benefits-left reveal">
+      <div class="label" data-en="Why PageUp" data-de="Warum PageUp">Warum PageUp</div>
+      <h2 class="title" data-en="Everything you get.<br>Nothing you don't." data-de="Alles was Sie brauchen.<br>Nichts was Sie nicht brauchen.">Alles was Sie brauchen.<br>Nichts was Sie nicht brauchen.</h2>
+      <p data-en="Built specifically for small businesses in the DACH region. No overblown agency pitches, no confusing contracts." data-de="Speziell für kleine Unternehmen im DACH-Raum entwickelt. Keine aufgeblasenen Agenturversprechen, keine verwirrenden Verträge.">Speziell für kleine Unternehmen im DACH-Raum entwickelt. Keine aufgeblasenen Agenturversprechen, keine verwirrenden Verträge.</p>
+
+      <div class="benefit-list">
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div class="benefit-text">
+            <strong data-en="No upfront costs, ever" data-de="Keine Vorabkosten – nie">Keine Vorabkosten – nie</strong>
+            <span data-en="Your subscription starts only when your site goes live. Zero cost until you're happy." data-de="Ihr Abo beginnt erst, wenn Ihre Website live ist. Kein Cent bis Sie zufrieden sind.">Ihr Abo beginnt erst, wenn Ihre Website live ist. Kein Cent bis Sie zufrieden sind.</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div class="benefit-text">
+            <strong data-en="See it before you commit" data-de="Erst sehen, dann entscheiden">Erst sehen, dann entscheiden</strong>
+            <span data-en="We build a real preview first. You don't sign anything until you've seen exactly what you're getting." data-de="Wir bauen zuerst eine echte Vorschau. Sie unterschreiben nichts, bis Sie genau gesehen haben, was Sie bekommen.">Wir bauen zuerst eine echte Vorschau. Sie unterschreiben nichts, bis Sie genau gesehen haben, was Sie bekommen.</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div class="benefit-text">
+            <strong data-en="Online within 7 days" data-de="Online innerhalb von 7 Tagen">Online innerhalb von 7 Tagen</strong>
+            <span data-en="Not weeks, not months. We move fast so you don't lose customers while waiting." data-de="Nicht Wochen, nicht Monate. Wir sind schnell, damit Sie keine Kunden verlieren während Sie warten.">Nicht Wochen, nicht Monate. Wir sind schnell, damit Sie keine Kunden verlieren während Sie warten.</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div class="benefit-text">
+            <strong data-en="Cancel anytime, no penalty" data-de="Jederzeit kündbar, keine Strafe">Jederzeit kündbar, keine Strafe</strong>
+            <span data-en="Month-to-month. No annual contracts, no cancellation fees. We keep your business by being good, not by locking you in." data-de="Monatlich kündbar. Kein Jahresvertrag, keine Kündigungsgebühren. Wir behalten Ihre Treue durch Qualität, nicht durch Knebelverträge.">Monatlich kündbar. Kein Jahresvertrag, keine Kündigungsgebühren. Wir behalten Ihre Treue durch Qualität, nicht durch Knebelverträge.</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div class="benefit-text">
+            <strong data-en="Found on Google from day 1" data-de="Ab Tag 1 bei Google gefunden">Ab Tag 1 bei Google gefunden</strong>
+            <span data-en="Every site we build includes basic SEO setup. Your new customers can find you immediately." data-de="Jede Website, die wir bauen, enthält Basis-SEO. Ihre neuen Kunden können Sie sofort finden.">Jede Website, die wir bauen, enthält Basis-SEO. Ihre neuen Kunden können Sie sofort finden.</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check">✓</div>
+          <div class="benefit-text">
+            <strong data-en="Bilingual: German & English" data-de="Zweisprachig: Deutsch & Englisch">Zweisprachig: Deutsch & Englisch</strong>
+            <span data-en="We work fluently in both languages. Your website can too." data-de="Wir arbeiten fließend in beiden Sprachen. Ihre Website auch.">Wir arbeiten fließend in beiden Sprachen. Ihre Website auch.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:.15s">
+      <div class="label" data-en="PageUp vs. traditional agency" data-de="PageUp vs. traditionelle Agentur">PageUp vs. traditionelle Agentur</div>
+      <div class="compare-box">
+        <div class="compare-header">
+          <div class="compare-col-h" data-en="Traditional agency" data-de="Traditionelle Agentur">Traditionelle Agentur</div>
+          <div class="compare-col-h">PageUp ✓</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell bad" data-en="€3,000–8,000 upfront" data-de="€3.000–8.000 Vorabkosten">€3.000–8.000 Vorabkosten</div>
+          <div class="compare-cell" data-en="€0 upfront — ever" data-de="€0 Vorabkosten – nie">€0 Vorabkosten – nie</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell bad" data-en="6–12 weeks delivery" data-de="6–12 Wochen Lieferzeit">6–12 Wochen Lieferzeit</div>
+          <div class="compare-cell" data-en="Online in 7 days" data-de="Online in 7 Tagen">Online in 7 Tagen</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell bad" data-en="Extra fees for every change" data-de="Extrakosten für jede Änderung">Extrakosten für jede Änderung</div>
+          <div class="compare-cell" data-en="Updates included" data-de="Updates inklusive">Updates inklusive</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell bad" data-en="Annual maintenance contracts" data-de="Jährliche Wartungsverträge">Jährliche Wartungsverträge</div>
+          <div class="compare-cell" data-en="Cancel anytime" data-de="Jederzeit kündbar">Jederzeit kündbar</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell bad" data-en="Ticket system for support" data-de="Ticketsystem für Support">Ticketsystem für Support</div>
+          <div class="compare-cell" data-en="Direct personal contact" data-de="Direkter persönlicher Kontakt">Direkter persönlicher Kontakt</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell bad" data-en="You buy blind (no preview)" data-de="Blind kaufen (keine Vorschau)">Blind kaufen (keine Vorschau)</div>
+          <div class="compare-cell" data-en="See it before you sign" data-de="Erst sehen, dann unterschreiben">Erst sehen, dann unterschreiben</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section class="refs-section">
+  <div class="label label-center reveal" data-en="Happy clients" data-de="Zufriedene Kunden">Zufriedene Kunden</div>
+  <h2 class="title reveal" style="text-align:center;margin-bottom:0.5rem;" data-en="Companies we've built for" data-de="Unternehmen für die wir gebaut haben">Unternehmen für die wir gebaut haben</h2>
+  <p class="subtitle center reveal" data-en="From online shops to edtech platforms." data-de="Von Onlineshops bis zu EdTech-Plattformen.">Von Onlineshops bis zu EdTech-Plattformen.</p>
+
+  <div class="refs-grid reveal">
+    <a class="ref-card" href="https://allesnatur.shop" target="_blank" rel="noopener">
+      <div class="ref-top">
+        <div class="ref-emoji" style="background:#dcfce7;">🌿</div>
+        <h3>allesNATUR.shop</h3>
+      </div>
+      <p data-en="Sustainable products & green lifestyle — a clean WooCommerce shop for nature-conscious Austrian consumers." data-de="Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.">Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.</p>
+      <span class="ref-cat" style="background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;">E-Commerce</span>
+      <span class="ref-link">allesnatur.shop ↗</span>
+    </a>
+
+    <a class="ref-card" href="https://digidoo.at" target="_blank" rel="noopener">
+      <div class="ref-top">
+        <div class="ref-emoji" style="background:#dbeafe;">📊</div>
+        <h3>Digidoo</h3>
+      </div>
+      <p data-en="Digital learning progress & competency grids — an EdTech startup from Graz, now in 100+ schools across AT, DE & CH." data-de="Digitale Lernfortschritte & Kompetenzraster – ein EdTech-Startup aus Graz, bereits in über 100 Schulen in AT, DE & CH.">Digitale Lernfortschritte & Kompetenzraster – ein EdTech-Startup aus Graz, bereits in über 100 Schulen in AT, DE & CH.</p>
+      <span class="ref-cat" style="background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;">EdTech</span>
+      <span class="ref-link">digidoo.at ↗</span>
+    </a>
+
+    <a class="ref-card" href="https://easily.energy" target="_blank" rel="noopener">
+      <div class="ref-top">
+        <div class="ref-emoji" style="background:#fef3c7;">⚡</div>
+        <h3 style="font-style:italic;">easily</h3>
+      </div>
+      <p data-en="Making EV charging super easy — a friendly website for an Austrian CleanTech company simplifying e-mobility." data-de="Elektroauto-Laden ganz einfach machen – eine freundliche Website für ein österreichisches CleanTech-Unternehmen.">Elektroauto-Laden ganz einfach machen – eine freundliche Website für ein österreichisches CleanTech-Unternehmen.</p>
+      <span class="ref-cat" style="background:#fffbeb;color:#b45309;border:1px solid #fde68a;">CleanTech</span>
+      <span class="ref-link">easily.energy ↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-inner">
+    <div class="label label-center reveal" data-en="Questions & Answers" data-de="Fragen & Antworten">Fragen & Antworten</div>
+    <h2 class="title reveal" style="text-align:center;margin-bottom:2rem;" data-en="Everything you might be wondering." data-de="Alles was Sie sich fragen könnten.">Alles was Sie sich fragen könnten.</h2>
+
+    <div class="faq-item reveal">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="Is there really no setup fee?" data-de="Gibt es wirklich keine Einrichtungsgebühr?">Gibt es wirklich keine Einrichtungsgebühr?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="Correct. We charge no setup fee on any plan. Your first invoice only arrives after your website is live and you've confirmed you're happy with it. No risk whatsoever." data-de="Korrekt. Wir berechnen bei keinem Paket eine Einrichtungsgebühr. Ihre erste Rechnung kommt erst, nachdem Ihre Website live ist und Sie bestätigt haben, dass Sie zufrieden sind. Kein Risiko.">Korrekt. Wir berechnen bei keinem Paket eine Einrichtungsgebühr. Ihre erste Rechnung kommt erst, nachdem Ihre Website live ist und Sie bestätigt haben, dass Sie zufrieden sind. Kein Risiko.</div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.05s">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="What if I want to cancel?" data-de="Was wenn ich kündigen möchte?">Was wenn ich kündigen möchte?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="Cancel anytime with one month's notice. No penalty, no cancellation fee. We'll even help you migrate your domain and content somewhere else if needed." data-de="Jederzeit mit einem Monat Kündigungsfrist kündigen. Keine Strafe, keine Gebühr. Wir helfen Ihnen sogar, Ihre Domain und Inhalte zu übertragen, falls nötig.">Jederzeit mit einem Monat Kündigungsfrist kündigen. Keine Strafe, keine Gebühr. Wir helfen Ihnen sogar, Ihre Domain und Inhalte zu übertragen, falls nötig.</div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.1s">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="What does 'update' mean exactly?" data-de="Was bedeutet 'Update' genau?">Was bedeutet 'Update' genau?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="An update means a content change: updating a text, swapping a photo, adding a new opening hour, or a small layout tweak. It doesn't include building new pages — that's covered by higher plans or a one-time add-on." data-de="Ein Update bedeutet eine Inhaltsänderung: einen Text aktualisieren, ein Foto austauschen, eine neue Öffnungszeit hinzufügen oder eine kleine Layout-Anpassung. Es umfasst nicht das Erstellen neuer Seiten – das wird durch höhere Pakete oder ein einmaliges Add-on abgedeckt.">Ein Update bedeutet eine Inhaltsänderung: einen Text aktualisieren, ein Foto austauschen, eine neue Öffnungszeit hinzufügen oder eine kleine Layout-Anpassung. Es umfasst nicht das Erstellen neuer Seiten – das wird durch höhere Pakete oder ein einmaliges Add-on abgedeckt.</div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.15s">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="Can I upgrade my plan later?" data-de="Kann ich mein Paket später upgraden?">Kann ich mein Paket später upgraden?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="Absolutely. Start with Starter and move to Business when your needs grow. We handle the migration for free and your new monthly fee starts from the next billing date." data-de="Absolut. Starten Sie mit Starter und wechseln Sie zu Business, wenn Ihre Anforderungen wachsen. Wir übernehmen die Migration kostenlos und Ihre neue monatliche Gebühr beginnt ab dem nächsten Abrechnungsdatum.">Absolut. Starten Sie mit Starter und wechseln Sie zu Business, wenn Ihre Anforderungen wachsen. Wir übernehmen die Migration kostenlos und Ihre neue monatliche Gebühr beginnt ab dem nächsten Abrechnungsdatum.</div>
+    </div>
+
+    <div class="faq-item reveal" style="transition-delay:.2s">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span data-en="Do I need my own domain?" data-de="Brauche ich eine eigene Domain?">Brauche ich eine eigene Domain?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a" data-en="If you already have one, great — we'll connect it. If not, we can register one for you. A .at or .com domain costs roughly €10–15/year on top of your plan." data-de="Wenn Sie bereits eine haben, perfekt – wir verbinden sie. Falls nicht, können wir eine für Sie registrieren. Eine .at oder .com Domain kostet ca. €10–15/Jahr zusätzlich zu Ihrem Paket.">Wenn Sie bereits eine haben, perfekt – wir verbinden sie. Falls nicht, können wir eine für Sie registrieren. Eine .at oder .com Domain kostet ca. €10–15/Jahr zusätzlich zu Ihrem Paket.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA FOOTER -->
+<section class="cta-footer" id="cta">
+  <div class="cta-footer-inner">
+    <h2 data-en="Ready to get<br><em>found online?</em>" data-de="Bereit, online<br><em>gefunden zu werden?</em>">Bereit, online<br><em>gefunden zu werden?</em></h2>
+    <p data-en="Reply to this email, call us, or click below. We'll have your website ready in 7 days — and you won't pay a cent until it's live and you love it." data-de="Antworten Sie auf diese E-Mail, rufen Sie uns an oder klicken Sie unten. Wir haben Ihre Website in 7 Tagen fertig – und Sie zahlen keinen Cent, bis sie live ist und Sie sie lieben.">Antworten Sie auf diese E-Mail, rufen Sie uns an oder klicken Sie unten. Wir haben Ihre Website in 7 Tagen fertig – und Sie zahlen keinen Cent, bis sie live ist und Sie sie lieben.</p>
+    <div class="cta-footer-btns">
+      <a href="mailto:hello@pageup.at" class="btn-amber" data-en="Email us now →" data-de="Jetzt E-Mail schreiben →">Jetzt E-Mail schreiben →</a>
+      <a href="tel:+43" class="btn-ghost-w" data-en="Call us" data-de="Anrufen">Anrufen</a>
+    </div>
+    <div class="contact-row">
+      <div class="contact-item">📧 <strong>hello@pageup.at</strong></div>
+      <div class="contact-item">🌐 <strong>pageup.at</strong></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p data-en="© 2025 PageUp · Websites for small businesses · English & Deutsch" data-de="© 2025 PageUp · Websites für kleine Unternehmen · Englisch & Deutsch">© 2025 PageUp · Websites für kleine Unternehmen · Englisch & Deutsch</p>
+  <p data-en="Impressum · Datenschutz" data-de="Impressum · Datenschutz">Impressum · Datenschutz</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('in'); }), { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // FAQ
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  // Lang
+  let lang = 'de';
+
+  function setLang(l) {
+    lang = l;
+    document.querySelectorAll('.lb').forEach(b => b.classList.toggle('active', b.textContent === l.toUpperCase()));
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-en][data-de]').forEach(el => {
+      const t = el.getAttribute('data-' + l);
+      if (!t) return;
+      if (t.includes('<')) el.innerHTML = t;
+      else el.textContent = t;
+    });
+    document.title = l === 'de' ? 'PageUp — Ihr Angebot' : 'PageUp — Your Offer';
+  }
+
+  // Auto-detect
+  const bl = navigator.language || '';
+  setLang(bl.toLowerCase().startsWith('de') ? 'de' : 'en');
+</script>
+</body>
+</html>
