@@ -694,6 +694,7 @@
   }
 
   /* ── PITCH DECK SECTION ── */
+  /* ── PITCH DECK (EMBEDDED) ── */
   .pitch {
     padding: 6rem 2rem;
     background: var(--surface);
@@ -701,7 +702,7 @@
   }
 
   .deck-container {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
   }
 
@@ -710,60 +711,133 @@
     border-radius: calc(var(--r) * 2);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    position: relative;
   }
 
-  /* Deck navigation */
+  /* Fullscreen overlay */
+  .deck.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Deck top bar */
   .deck-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.2rem;
     background: var(--white);
     border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
   }
 
-  .deck-dots {
-    display: flex;
-    gap: 0.5rem;
+  .deck.fullscreen .deck-nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
   }
+
+  .deck-dots { display: flex; gap: 0.5rem; align-items: center; }
 
   .deck-dot {
-    width: 8px; height: 8px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: var(--border);
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.2s;
   }
 
-  .deck-dot.active { background: var(--ink); }
+  .deck-dot.active { background: var(--ink); transform: scale(1.3); }
+  .deck.fullscreen .deck-dot { background: rgba(255,255,255,0.3); }
+  .deck.fullscreen .deck-dot.active { background: white; }
 
-  .deck-controls {
-    display: flex;
-    gap: 0.5rem;
-  }
+  .deck-controls { display: flex; gap: 0.5rem; align-items: center; }
 
   .deck-btn {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
-    width: 30px; height: 30px;
+    width: 28px; height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     transition: background 0.2s;
     color: var(--ink);
   }
 
   .deck-btn:hover { background: var(--border); }
-  .deck-btn:disabled { opacity: 0.3; cursor: default; }
+  .deck-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .deck.fullscreen .deck-btn {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: white;
+  }
+
+  .deck.fullscreen .deck-btn:hover { background: rgba(255,255,255,0.25); }
 
   .deck-counter {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--mid);
     font-weight: 500;
+    min-width: 36px;
+    text-align: center;
   }
+
+  .deck.fullscreen .deck-counter { color: rgba(255,255,255,0.5); }
+
+  /* Fullscreen toggle button */
+  .deck-fs-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 28px; height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--mid);
+    transition: all 0.2s;
+    font-size: 0.75rem;
+  }
+
+  .deck-fs-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
+
+  .deck.fullscreen .deck-fs-btn {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: white;
+  }
+
+  .deck.fullscreen .deck-fs-btn:hover { background: rgba(255,255,255,0.3); }
+
+  /* Progress bar inside deck */
+  .deck-progress {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(0,0,0,0.08);
+    z-index: 10;
+  }
+
+  .deck.fullscreen .deck-progress { background: rgba(255,255,255,0.1); }
+
+  .deck-progress-fill {
+    height: 100%;
+    background: var(--ink);
+    transition: width 0.4s ease;
+  }
+
+  .deck.fullscreen .deck-progress-fill { background: white; }
 
   /* Slides */
   .slides-wrapper {
@@ -773,177 +847,210 @@
 
   .slide {
     display: none;
-    min-height: 480px;
-    padding: 4rem;
+    min-height: 500px;
+    padding: 3.5rem 4rem;
     background: var(--white);
     position: relative;
     overflow: hidden;
+    transition: opacity 0.35s ease;
+  }
+
+  .deck.fullscreen .slide {
+    min-height: 100vh;
+    padding: 6rem 6rem 4rem;
   }
 
   .slide.active { display: flex; flex-direction: column; justify-content: center; }
 
   /* Slide 1 – Cover */
-  .slide-cover {
-    background: var(--ink);
-    color: var(--white);
-    align-items: center;
-    text-align: center;
-  }
+  .slide-cover { background: var(--ink); color: var(--white); align-items: center; text-align: center; }
 
   .slide-cover-logo {
     font-family: var(--font-head);
-    font-weight: 800;
-    font-size: 3.5rem;
+    font-weight: 900;
+    font-size: 3rem;
     letter-spacing: -0.04em;
     margin-bottom: 0.5rem;
-  }
-
-  .slide-cover-logo .dot {
-    display: inline-block;
-    width: 10px; height: 10px;
-    background: var(--white);
-    border-radius: 50%;
-    margin-bottom: 6px;
-    margin-left: 2px;
+    font-variation-settings: 'opsz' 48;
   }
 
   .slide-cover-tagline {
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 3rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2.5rem;
     font-weight: 300;
+    letter-spacing: 0.05em;
   }
 
   .slide-cover-title {
     font-family: var(--font-head);
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
     letter-spacing: -0.02em;
-    line-height: 1.3;
+    line-height: 1.15;
+    font-variation-settings: 'opsz' 48;
   }
 
-  /* Slide 2 – Problem */
-  .slide-problem { background: #fafafa; }
+  .slide-cover-sub {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.4);
+    font-weight: 300;
+  }
 
+  /* Slide label */
   .slide-label {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--mid);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
+  /* Slide h2 */
   .slide h2 {
     font-family: var(--font-head);
     font-weight: 700;
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 2.5vw, 2.5rem);
     letter-spacing: -0.02em;
-    margin-bottom: 2rem;
-    line-height: 1.2;
+    margin-bottom: 1.8rem;
+    line-height: 1.15;
+    font-variation-settings: 'opsz' 36;
   }
+
+  /* Problem slide */
+  .slide-problem { background: #fafafa; }
 
   .problem-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 
   .p-stat {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--r);
-    padding: 1.5rem;
+    padding: 1.4rem;
   }
 
   .p-stat-num {
     font-family: var(--font-head);
-    font-weight: 800;
+    font-weight: 900;
     font-size: 2.2rem;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     color: var(--ink);
     line-height: 1;
     margin-bottom: 0.4rem;
+    font-variation-settings: 'opsz' 36;
   }
 
-  .p-stat-label {
-    font-size: 0.82rem;
-    color: var(--mid);
-    line-height: 1.5;
-  }
+  .p-stat-label { font-size: 0.8rem; color: var(--mid); line-height: 1.5; }
 
-  /* Slide 3 – Solution */
+  /* Solution slide */
   .slide-solution { background: var(--ink); color: var(--white); }
 
   .solution-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    gap: 1rem;
+    margin-top: 0.5rem;
   }
 
   .sol-item {
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: var(--r);
-    padding: 1.5rem;
+    padding: 1.2rem 1.5rem;
   }
 
-  .sol-item h4 {
+  .sol-item h4 { font-family: var(--font-head); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem; font-variation-settings: 'opsz' 16; }
+  .sol-item p { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; font-weight: 300; }
+
+  /* How it works slide */
+  .slide-how { background: var(--white); }
+
+  .slide-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+
+  .slide-step {
+    background: white;
+    padding: 1.8rem;
+  }
+
+  .slide-step-n {
     font-family: var(--font-head);
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.4rem;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+    font-variation-settings: 'opsz' 36;
   }
 
-  .sol-item p { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .slide-step-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--mid);
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.6rem;
+  }
 
-  /* Slide 4 – Pricing */
+  .slide-step h3 { font-family: var(--font-head); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.4rem; font-variation-settings: 'opsz' 16; }
+  .slide-step p { font-size: 0.78rem; color: var(--mid); line-height: 1.65; font-weight: 300; }
+
+  /* Pricing slide */
   .slide-pricing { background: var(--surface); }
 
   .mini-plans {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin-top: 0.5rem;
   }
 
   .mini-plan {
     background: var(--white);
     border: 1.5px solid var(--border);
     border-radius: var(--r);
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
 
-  .mini-plan.hi { border-color: var(--ink); }
+  .mini-plan.hi { background: var(--ink); border-color: var(--ink); color: white; }
+  .mini-plan.hi .mini-plan-period { color: rgba(255,255,255,0.4); }
+  .mini-plan.hi ul li { color: rgba(255,255,255,0.7); }
+  .mini-plan.hi ul li::before { color: #4ade80; }
 
-  .mini-plan-name {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 0.4rem;
-  }
+  .mini-plan-name { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.3rem; }
+  .mini-plan.hi .mini-plan-name { color: rgba(255,255,255,0.5); }
 
-  .mini-plan-price {
-    font-family: var(--font-head);
-    font-weight: 800;
-    font-size: 1.8rem;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    margin-bottom: 0.2rem;
-  }
+  .mini-plan-price { font-family: var(--font-head); font-weight: 900; font-size: 1.6rem; letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.15rem; font-variation-settings: 'opsz' 24; }
+  .mini-plan-period { font-size: 0.65rem; color: var(--mid); margin-bottom: 0.8rem; font-weight: 300; }
 
-  .mini-plan-period { font-size: 0.72rem; color: var(--mid); margin-bottom: 1rem; }
-
-  .mini-plan ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .mini-plan ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
 
   .mini-plan ul li {
-    font-size: 0.78rem;
+    font-size: 0.73rem;
     color: var(--mid);
-    padding-left: 1rem;
+    padding-left: 0.9rem;
     position: relative;
+    line-height: 1.4;
+    font-weight: 300;
   }
 
   .mini-plan ul li::before {
@@ -951,38 +1058,52 @@
     position: absolute;
     left: 0;
     color: var(--green);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
   }
 
-  /* Slide 5 – CTA */
-  .slide-cta {
-    background: var(--ink);
-    color: var(--white);
-    text-align: center;
-    align-items: center;
+  /* Why slide */
+  .slide-why { background: var(--white); }
+
+  .slide-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    margin-top: 0.5rem;
   }
+
+  .slide-why-item { background: white; padding: 1.5rem; }
+  .slide-why-icon { font-size: 1.2rem; margin-bottom: 0.6rem; }
+  .slide-why-item h3 { font-family: var(--font-head); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; font-variation-settings: 'opsz' 14; }
+  .slide-why-item p { font-size: 0.75rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
+
+  /* CTA slide */
+  .slide-cta { background: var(--ink); color: var(--white); align-items: center; text-align: center; }
 
   .slide-cta h2 {
     font-family: var(--font-head);
-    font-weight: 800;
-    font-size: 2.5rem;
+    font-weight: 900;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
     letter-spacing: -0.03em;
     margin-bottom: 1rem;
+    font-variation-settings: 'opsz' 48;
   }
 
-  .slide-cta p { color: rgba(255,255,255,0.5); margin-bottom: 2rem; max-width: 420px; }
+  .slide-cta p { color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; max-width: 420px; font-weight: 300; font-size: 0.95rem; }
 
   .cta-highlight {
-    background: rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: var(--r);
-    padding: 1.2rem 2rem;
-    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+    margin-bottom: 1.8rem;
   }
 
-  .cta-highlight p { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 0; }
-
+  .cta-highlight p { color: rgba(255,255,255,0.65); font-size: 0.88rem; margin: 0; }
   .cta-highlight strong { color: var(--white); }
 
   /* ── CONTACT ── */
@@ -1528,32 +1649,40 @@
 <section class="pitch" id="pitch">
   <div class="section-label" style="text-align:center" data-en="Sales tool" data-de="Verkaufstool">Sales tool</div>
   <h2 class="section-title" data-en="Prospect pitch deck" data-de="Präsentation für Interessenten">Prospect pitch deck</h2>
-  <p class="section-sub" data-en="Use this when visiting a potential client. Walk them through it on your phone or laptop." data-de="Nutzen Sie diese Präsentation beim Besuch eines potenziellen Kunden. Führen Sie ihn auf Ihrem Handy oder Laptop durch.">Use this when visiting a potential client. Walk them through it on your phone or laptop.</p>
+  <p class="section-sub" data-en="Use when visiting a client. Hit fullscreen for the full presentation experience." data-de="Beim Kundenbesuch einsetzen. Vollbild für das volle Präsentationserlebnis.">Use when visiting a client. Hit fullscreen for the full presentation experience.</p>
 
   <div class="deck-container reveal">
-    <div class="deck">
+    <div class="deck" id="mainDeck">
+
+      <!-- Nav bar -->
       <div class="deck-nav">
         <div class="deck-dots" id="deckDots"></div>
-        <span class="deck-counter" id="deckCounter">1 / 5</span>
+        <span class="deck-counter" id="deckCounter">1 / 7</span>
         <div class="deck-controls">
           <button class="deck-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>←</button>
           <button class="deck-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
+          <button class="deck-fs-btn" id="fsBtn" onclick="toggleFullscreen()" title="Fullscreen">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div class="slides-wrapper">
+      <div class="slides-wrapper" id="slidesWrapper">
 
-        <!-- Slide 1: Cover -->
+        <!-- S1: Cover -->
         <div class="slide slide-cover active" id="slide-0">
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px;"></div>
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;"></div>
           <div style="position:relative;z-index:1;">
-            <div class="slide-cover-logo"><em style="font-style:italic;font-weight:400;opacity:0.75;">Page</em><span style="font-weight:900;">Up</span></div>
+            <div class="slide-cover-logo"><em style="font-style:italic;font-weight:400;opacity:0.65;">Page</em><span style="font-weight:900;">Up</span></div>
             <div class="slide-cover-tagline" data-en="Websites for small businesses" data-de="Websites für kleine Unternehmen">Websites for small businesses</div>
             <div class="slide-cover-title" data-en="Your business deserves<br>to be found online." data-de="Ihr Unternehmen verdient es,<br>online gefunden zu werden.">Your business deserves<br>to be found online.</div>
+            <div class="slide-cover-sub" data-en="We already built your website. Want to see it?" data-de="Wir haben Ihre Website bereits gebaut. Möchten Sie sie sehen?">We already built your website. Want to see it?</div>
           </div>
         </div>
 
-        <!-- Slide 2: Problem -->
+        <!-- S2: Problem -->
         <div class="slide slide-problem" id="slide-1">
           <div class="slide-label" data-en="The problem" data-de="Das Problem">The problem</div>
           <h2 data-en="Most small businesses<br>are invisible online." data-de="Die meisten kleinen Unternehmen<br>sind online unsichtbar.">Most small businesses<br>are invisible online.</h2>
@@ -1564,44 +1693,70 @@
             </div>
             <div class="p-stat">
               <div class="p-stat-num">81%</div>
-              <div class="p-stat-label" data-en="of customers research online before visiting a local business" data-de="der Kunden recherchieren online, bevor sie ein lokales Unternehmen besuchen">of customers research online before visiting a local business</div>
+              <div class="p-stat-label" data-en="of customers search online before visiting a local business" data-de="der Kunden suchen online, bevor sie ein lokales Unternehmen besuchen">of customers search online before visiting a local business</div>
             </div>
             <div class="p-stat">
-              <div class="p-stat-num">3sec</div>
-              <div class="p-stat-label" data-en="is all it takes for a visitor to leave a slow or outdated site" data-de="reichen einem Besucher, um eine langsame oder veraltete Seite zu verlassen">is all it takes for a visitor to leave a slow or outdated site</div>
+              <div class="p-stat-num">3s</div>
+              <div class="p-stat-label" data-en="is all it takes for a visitor to leave a slow or outdated site" data-de="reichen einem Besucher, um eine veraltete Seite zu verlassen">is all it takes for a visitor to leave a slow or outdated site</div>
             </div>
           </div>
         </div>
 
-        <!-- Slide 3: Solution -->
+        <!-- S3: Solution -->
         <div class="slide slide-solution" id="slide-2">
-          <div class="slide-label" style="color:rgba(255,255,255,0.4)" data-en="Our solution" data-de="Unsere Lösung">Our solution</div>
-          <h2 style="color:white" data-en="We already built<br>your website." data-de="Wir haben Ihre Website<br>bereits gebaut.">We already built<br>your website.</h2>
+          <div class="slide-label" style="color:rgba(255,255,255,0.35)" data-en="Our solution" data-de="Unsere Lösung">Our solution</div>
+          <h2 style="color:white;" data-en="We already built<br>your website." data-de="Wir haben<br>Ihre Website bereits gebaut.">We already built<br>your website.</h2>
           <div class="solution-grid">
             <div class="sol-item">
-              <h4 data-en="🎯 See it before you buy" data-de="🎯 Erst sehen, dann kaufen">🎯 See it before you buy</h4>
-              <p data-en="We show up with a real working mock-up of your site. No commitment needed to see it." data-de="Wir erscheinen mit einem echten Mock-up Ihrer Website. Keine Verpflichtung nötig.">We show up with a real working mock-up of your site. No commitment needed to see it.</p>
+              <h4 data-en="🎯 See it before you commit" data-de="🎯 Erst sehen, dann entscheiden">🎯 See it before you commit</h4>
+              <p data-en="We show up with a real working mock-up of your site. No contract needed to see it." data-de="Wir kommen mit einem echten Mock-up. Kein Vertrag nötig.">We show up with a real working mock-up of your site. No contract needed to see it.</p>
             </div>
             <div class="sol-item">
-              <h4 data-en="⚡ Live in 7 days" data-de="⚡ Online in 7 Tagen">⚡ Live in 7 days</h4>
-              <p data-en="Once you approve, we build the full site and get it online within one week." data-de="Sobald Sie zustimmen, bauen wir die vollständige Site und bringen sie innerhalb einer Woche online.">Once you approve, we build the full site and get it online within one week.</p>
+              <h4 data-en="⚡ Online in 7 days" data-de="⚡ Online in 7 Tagen">⚡ Online in 7 days</h4>
+              <p data-en="Once you approve, we build the full site and get it live within one week." data-de="Sobald Sie zustimmen, sind wir innerhalb einer Woche online.">Once you approve, we build the full site and get it live within one week.</p>
             </div>
             <div class="sol-item">
               <h4 data-en="🔧 We handle everything" data-de="🔧 Wir kümmern uns um alles">🔧 We handle everything</h4>
-              <p data-en="Hosting, updates, and security are all included. You focus on your business." data-de="Hosting, Updates und Sicherheit sind alles inklusive. Sie konzentrieren sich auf Ihr Geschäft.">Hosting, updates, and security are all included. You focus on your business.</p>
+              <p data-en="Hosting, updates, security — all included in one monthly fee." data-de="Hosting, Updates, Sicherheit – alles in einer Monatsgebühr.">Hosting, updates, security — all included in one monthly fee.</p>
             </div>
             <div class="sol-item">
-              <h4 data-en="💶 One simple monthly fee" data-de="💶 Eine einfache Monatsgebühr">💶 One simple monthly fee</h4>
-              <p data-en="No surprise invoices. No hourly rates. Just a predictable monthly cost." data-de="Keine Überraschungsrechnungen. Keine Stundensätze. Nur ein planbarer Monatsbetrag.">No surprise invoices. No hourly rates. Just a predictable monthly cost.</p>
+              <h4 data-en="💶 Pure subscription" data-de="💶 Reines Abo">💶 Pure subscription</h4>
+              <p data-en="No setup fees. No surprise invoices. Just a simple predictable monthly cost." data-de="Keine Einrichtungsgebühr. Keine Überraschungen. Nur ein planbarer Monatsbetrag.">No setup fees. No surprise invoices. Just a simple predictable monthly cost.</p>
             </div>
           </div>
         </div>
 
-        <!-- Slide 4: Pricing -->
-        <div class="slide slide-pricing" id="slide-3">
+        <!-- S4: How it works -->
+        <div class="slide slide-how" id="slide-3">
+          <div class="slide-label" data-en="The process" data-de="Der Ablauf">The process</div>
+          <h2 data-en="From handshake to<br>live website in 3 steps." data-de="Vom Handschlag zur<br>Website in 3 Schritten.">From handshake to<br>live website in 3 steps.</h2>
+          <div class="slide-steps">
+            <div class="slide-step">
+              <div class="slide-step-n">01</div>
+              <div class="slide-step-tag" data-en="Day 1 — Free" data-de="Tag 1 — Kostenlos">Day 1 — Free</div>
+              <h3 data-en="We show you the mock-up" data-de="Wir zeigen das Mock-up">We show you the mock-up</h3>
+              <p data-en="Already built. You see it, give feedback, and decide — zero obligation." data-de="Bereits gebaut. Sie sehen es, geben Feedback und entscheiden – völlig unverbindlich.">Already built. You see it, give feedback, and decide — zero obligation.</p>
+            </div>
+            <div class="slide-step">
+              <div class="slide-step-n">02</div>
+              <div class="slide-step-tag" data-en="Days 2–7" data-de="Tage 2–7">Days 2–7</div>
+              <h3 data-en="We build the real thing" data-de="Wir bauen die echte Website">We build the real thing</h3>
+              <p data-en="Full production site — fast, mobile-first, and ready for Google." data-de="Vollständige Website – schnell, mobiloptimiert und Google-bereit.">Full production site — fast, mobile-first, and ready for Google.</p>
+            </div>
+            <div class="slide-step">
+              <div class="slide-step-n">03</div>
+              <div class="slide-step-tag" data-en="Ongoing" data-de="Laufend">Ongoing</div>
+              <h3 data-en="We take care of everything" data-de="Wir kümmern uns um alles">We take care of everything</h3>
+              <p data-en="Hosting, updates, and small changes are included every month." data-de="Hosting, Updates und kleine Änderungen sind jeden Monat inklusive.">Hosting, updates, and small changes are included every month.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- S5: Pricing -->
+        <div class="slide slide-pricing" id="slide-4">
           <div class="slide-label" data-en="Transparent pricing" data-de="Transparente Preise">Transparent pricing</div>
-          <h2 data-en="Simple plans.<br>No surprises." data-de="Einfache Pakete.<br>Keine Überraschungen.">Simple plans.<br>No surprises.</h2>
-          <div class="mini-plans" style="grid-template-columns:repeat(4,1fr);">
+          <h2 data-en="Simple plans. No surprises." data-de="Einfache Pakete. Keine Überraschungen.">Simple plans. No surprises.</h2>
+          <div class="mini-plans">
             <div class="mini-plan">
               <div class="mini-plan-name" data-en="Starter" data-de="Starter">Starter</div>
               <div class="mini-plan-price">€39</div>
@@ -1625,7 +1780,7 @@
               </ul>
             </div>
             <div class="mini-plan hi">
-              <div class="mini-plan-name">Business ⭐</div>
+              <div class="mini-plan-name" data-en="Business ⭐" data-de="Business ⭐">Business ⭐</div>
               <div class="mini-plan-price">€119</div>
               <div class="mini-plan-period" data-en="per month" data-de="pro Monat">per month</div>
               <ul>
@@ -1637,7 +1792,7 @@
             </div>
             <div class="mini-plan" style="border-style:dashed;">
               <div class="mini-plan-name" data-en="Enterprise" data-de="Enterprise">Enterprise</div>
-              <div class="mini-plan-price" style="font-size:1.1rem;margin-top:0.3rem;" data-en="On request" data-de="Auf Anfrage">On request</div>
+              <div class="mini-plan-price" style="font-size:1rem;margin-top:0.2rem;" data-en="On request" data-de="Auf Anfrage">On request</div>
               <div class="mini-plan-period" data-en="custom quote" data-de="individuelles Angebot">custom quote</div>
               <ul>
                 <li data-en="Unlimited pages" data-de="Unbegrenzte Seiten">Unlimited pages</li>
@@ -1649,23 +1804,65 @@
           </div>
         </div>
 
-        <!-- Slide 5: CTA -->
-        <div class="slide slide-cta" id="slide-4">
-          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px;"></div>
+        <!-- S6: Why PageUp -->
+        <div class="slide slide-why" id="slide-5">
+          <div class="slide-label" data-en="Why PageUp" data-de="Warum PageUp">Why PageUp</div>
+          <h2 data-en="Built for small businesses.<br>Not big agencies." data-de="Für kleine Unternehmen.<br>Nicht für große Agenturen.">Built for small businesses.<br>Not big agencies.</h2>
+          <div class="slide-why-grid">
+            <div class="slide-why-item">
+              <div class="slide-why-icon">⚡</div>
+              <h3 data-en="See it before you buy" data-de="Erst sehen, dann kaufen">See it before you buy</h3>
+              <p data-en="A real mock-up before any commitment. No guesswork." data-de="Ein echtes Mock-up vor jeder Verpflichtung.">A real mock-up before any commitment. No guesswork.</p>
+            </div>
+            <div class="slide-why-item">
+              <div class="slide-why-icon">📱</div>
+              <h3 data-en="Perfect on every device" data-de="Perfekt auf jedem Gerät">Perfect on every device</h3>
+              <p data-en="Mobile, tablet, desktop — great from day one." data-de="Handy, Tablet, Desktop – perfekt von Anfang an.">Mobile, tablet, desktop — great from day one.</p>
+            </div>
+            <div class="slide-why-item">
+              <div class="slide-why-icon">🔒</div>
+              <h3 data-en="We handle the tech" data-de="Wir kümmern uns um die Technik">We handle the tech</h3>
+              <p data-en="Hosting, backups, security — never think about it." data-de="Hosting, Backups, Sicherheit – kein Aufwand für Sie.">Hosting, backups, security — never think about it.</p>
+            </div>
+            <div class="slide-why-item">
+              <div class="slide-why-icon">💬</div>
+              <h3 data-en="A real person to call" data-de="Ein echter Ansprechpartner">A real person to call</h3>
+              <p data-en="No ticket systems. Direct contact who knows your site." data-de="Kein Ticketsystem. Direkter Kontakt, der Ihre Website kennt.">No ticket systems. Direct contact who knows your site.</p>
+            </div>
+            <div class="slide-why-item">
+              <div class="slide-why-icon">🌍</div>
+              <h3 data-en="EN & DE, no problem" data-de="EN & DE, kein Problem">EN & DE, no problem</h3>
+              <p data-en="Fluent in both — your site speaks your customers' language." data-de="Fließend in beiden Sprachen – Ihre Website spricht Ihre Kunden an.">Fluent in both — your site speaks your customers' language.</p>
+            </div>
+            <div class="slide-why-item">
+              <div class="slide-why-icon">📈</div>
+              <h3 data-en="Grows with you" data-de="Wächst mit Ihnen">Grows with you</h3>
+              <p data-en="Start simple. Upgrade anytime as your business grows." data-de="Einfach starten. Jederzeit upgraden wenn Ihr Unternehmen wächst.">Start simple. Upgrade anytime as your business grows.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- S7: CTA -->
+        <div class="slide slide-cta" id="slide-6">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;"></div>
           <div style="position:relative;z-index:1;text-align:center;">
-            <h2 data-en="Ready to get<br>PageUp?" data-de="Bereit für<br>PageUp?">Ready to get<br>PageUp?</h2>
-            <p data-en="We've already built a mock-up of your site. Let us show you what your business could look like online." data-de="Wir haben bereits ein Mock-up Ihrer Website gebaut. Lassen Sie uns zeigen, wie Ihr Unternehmen online aussehen könnte.">We've already built a mock-up of your site. Let us show you what your business could look like online.</p>
+            <h2 data-en="Ready to get<br>found online?" data-de="Bereit, online<br>gefunden zu werden?">Ready to get<br>found online?</h2>
+            <p data-en="We've already built a mock-up of your website. Let us show you — no commitment, no cost." data-de="Wir haben bereits ein Mock-up Ihrer Website gebaut. Lassen Sie es uns zeigen – unverbindlich und kostenlos.">We've already built a mock-up of your website. Let us show you — no commitment, no cost.</p>
             <div class="cta-highlight">
-              <p data-en='Pure subscription — no setup fee, no surprises.<br>Cancel anytime.' data-de='Reines Abo – keine Einrichtungsgebühr, keine Überraschungen.<br>Jederzeit kündbar.'>Pure subscription — no setup fee, no surprises.<br>Cancel anytime.</p>
+              <p data-en='Pure subscription — <strong>no setup fee</strong>, no surprises. Cancel anytime.' data-de='Reines Abo – <strong>keine Einrichtungsgebühr</strong>, keine Überraschungen. Jederzeit kündbar.'>Pure subscription — <strong>no setup fee</strong>, no surprises. Cancel anytime.</p>
             </div>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-              <a href="#contact" class="btn" style="background:white;color:var(--ink);" data-en="Let's talk →" data-de="Gespräch vereinbaren →">Let's talk →</a>
-              <a href="#pricing" class="btn" style="background:transparent;color:rgba(255,255,255,0.6);border:1.5px solid rgba(255,255,255,0.2);" data-en="See all plans" data-de="Alle Pakete">See all plans</a>
+              <a href="#contact" class="btn btn-dark" data-en="Let's talk →" data-de="Gespräch vereinbaren →">Let's talk →</a>
+              <a href="#pricing" class="btn btn-ghost" data-en="See all plans" data-de="Alle Pakete">See all plans</a>
             </div>
           </div>
         </div>
 
       </div><!-- /slides-wrapper -->
+
+      <!-- Progress bar -->
+      <div class="deck-progress"><div class="deck-progress-fill" id="deckProgress" style="width:14.28%"></div></div>
+
     </div><!-- /deck -->
   </div>
 </section>
@@ -1798,7 +1995,7 @@
 
   // ── PITCH DECK ──
   let current = 0;
-  const total = 5;
+  const total = 7;
 
   const dotsEl = document.getElementById('deckDots');
   for (let i = 0; i < total; i++) {
@@ -1815,15 +2012,50 @@
     document.getElementById('slide-' + current).classList.add('active');
     dotsEl.children[current].classList.add('active');
     document.getElementById('deckCounter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('deckProgress').style.width = ((current + 1) / total * 100) + '%';
     document.getElementById('prevBtn').disabled = current === 0;
     document.getElementById('nextBtn').disabled = current === total - 1;
   }
 
-  function changeSlide(dir) { goToSlide(current + dir); }
+  function changeSlide(dir) { goToSlide(Math.max(0, Math.min(total - 1, current + dir))); }
 
+  // Fullscreen
+  function toggleFullscreen() {
+    const deck = document.getElementById('mainDeck');
+    const btn = document.getElementById('fsBtn');
+    const isFs = deck.classList.toggle('fullscreen');
+    // Update icon
+    btn.innerHTML = isFs
+      ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>`
+      : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>`;
+    // Prevent page scroll in fullscreen
+    document.body.style.overflow = isFs ? 'hidden' : '';
+  }
+
+  // Keyboard nav (only when deck is focused / fullscreen)
   document.addEventListener('keydown', e => {
+    const deck = document.getElementById('mainDeck');
+    if (!deck.classList.contains('fullscreen') && document.activeElement !== deck) return;
     if (e.key === 'ArrowRight' && current < total - 1) changeSlide(1);
     if (e.key === 'ArrowLeft' && current > 0) changeSlide(-1);
+    if (e.key === 'Escape' && deck.classList.contains('fullscreen')) toggleFullscreen();
+  });
+
+  // Always allow arrow keys when fullscreen
+  document.addEventListener('keydown', e => {
+    const deck = document.getElementById('mainDeck');
+    if (!deck.classList.contains('fullscreen')) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); if (current < total - 1) changeSlide(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); if (current > 0) changeSlide(-1); }
+  });
+
+  // Touch swipe
+  let touchX = 0;
+  const sw = document.getElementById('slidesWrapper');
+  sw.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+  sw.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) changeSlide(dx < 0 ? 1 : -1);
   });
 
   // ── CONTACT FORM ──
