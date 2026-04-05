@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PageUp — Websites for Small Businesses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -21,8 +21,8 @@
     --green:     #16a34a;
     --green-lt:  #dcfce7;
 
-    --font-head: 'Syne', sans-serif;
-    --font-body: 'Instrument Sans', sans-serif;
+    --font-head: 'Fraunces', serif;
+    --font-body: 'DM Sans', sans-serif;
 
     --r: 6px;
     --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
@@ -57,22 +57,27 @@
 
   .nav-logo {
     font-family: var(--font-head);
-    font-weight: 800;
-    font-size: 1.35rem;
+    font-weight: 700;
+    font-size: 1.45rem;
     color: var(--ink);
     text-decoration: none;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0;
+    font-variation-settings: 'opsz' 24;
   }
 
-  .nav-logo .dot {
-    width: 7px; height: 7px;
-    background: var(--ink);
-    border-radius: 50%;
-    display: inline-block;
-    margin-bottom: 2px;
+  .nav-logo .logo-page {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+
+  .nav-logo .logo-up {
+    font-style: normal;
+    font-weight: 900;
+    color: var(--ink);
   }
 
   .nav-links {
@@ -208,12 +213,13 @@
 
   .hero h1 {
     font-family: var(--font-head);
-    font-weight: 800;
+    font-weight: 700;
     font-size: clamp(2.8rem, 6.5vw, 5.5rem);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     color: var(--ink);
     margin-bottom: 1.5rem;
+    font-variation-settings: 'opsz' 72;
   }
 
   .hero h1 em {
@@ -332,7 +338,8 @@
     letter-spacing: -0.02em;
     text-align: center;
     margin-bottom: 1rem;
-    line-height: 1.15;
+    line-height: 1.18;
+    font-variation-settings: 'opsz' 48;
   }
 
   .section-sub {
@@ -1042,11 +1049,103 @@
 
   .reveal.in { opacity: 1; transform: none; }
 
-  /* ── RESPONSIVE ── */
+  /* ── REFERENCES ── */
+  .references {
+    padding: 6rem 2rem;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+  }
+
+  .ref-logos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ref-card {
+    border: 1.5px solid var(--border);
+    border-radius: calc(var(--r) * 2);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ref-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--ref-color-a, var(--border)), var(--ref-color-b, var(--border)));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .ref-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: transparent;
+  }
+
+  .ref-card:hover::before { transform: scaleX(1); }
+
+  .ref-logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .ref-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .ref-name {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variation-settings: 'opsz' 20;
+    line-height: 1.2;
+  }
+
+  .ref-tagline {
+    font-size: 0.8rem;
+    color: var(--mid);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .ref-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--mid);
+    background: var(--surface);
+    align-self: flex-start;
+  }
   @media (max-width: 768px) {
     nav { padding: 0 1.2rem; }
     .nav-links { display: none; }
-    .steps, .why-grid, .plans { grid-template-columns: 1fr; }
+    .steps, .why-grid, .plans, .ref-logos { grid-template-columns: 1fr; }
     .problem-stats, .solution-grid, .mini-plans { grid-template-columns: 1fr 1fr; }
     .slide { padding: 2.5rem; min-height: auto; }
     .form-row { grid-template-columns: 1fr; }
@@ -1064,11 +1163,11 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">PageUp<span class="dot"></span></a>
+  <a href="#" class="nav-logo"><span class="logo-page">Page</span><span class="logo-up">Up</span></a>
   <ul class="nav-links">
     <li><a href="#how" data-en="How it works" data-de="So funktioniert's">How it works</a></li>
     <li><a href="#pricing" data-en="Pricing" data-de="Preise">Pricing</a></li>
-    <li><a href="#pitch" data-en="Pitch Deck" data-de="Pitch Deck">Pitch Deck</a></li>
+    <li><a href="#references" data-en="References" data-de="Referenzen">References</a></li>
     <li><a href="#contact" class="nav-cta" data-en="Get started" data-de="Jetzt starten">Get started</a></li>
   </ul>
   <div class="lang-switch">
@@ -1269,6 +1368,47 @@
   </div>
 </section>
 
+<!-- REFERENCES -->
+<section class="references" id="references">
+  <div class="section-label" style="text-align:center" data-en="Happy clients" data-de="Zufriedene Kunden">Happy clients</div>
+  <h2 class="section-title reveal" data-en="Websites we've built" data-de="Websites, die wir gebaut haben">Websites we've built</h2>
+  <p class="section-sub reveal" data-en="From online shops to edtech platforms — small businesses in every industry." data-de="Von Onlineshops bis Edtech-Plattformen – kleine Unternehmen in jeder Branche.">From online shops to edtech platforms — small businesses in every industry.</p>
+
+  <div class="ref-logos reveal">
+
+    <!-- allesNATUR -->
+    <div class="ref-card" style="--ref-color-a:#16a34a;--ref-color-b:#4ade80;">
+      <div class="ref-logo-mark">
+        <div class="ref-icon" style="background:#dcfce7;">🌿</div>
+        <div class="ref-name">allesNATUR<span style="font-weight:300;font-style:italic;">.shop</span></div>
+      </div>
+      <p class="ref-tagline" data-en="A clean, conversion-focused online shop for sustainable products and green lifestyle goods — built to feel as natural as the products it sells." data-de="Ein sauberer, conversionstarker Onlineshop für nachhaltige Produkte und Green-Lifestyle-Artikel – so natürlich gestaltet wie die Produkte selbst.">A clean, conversion-focused online shop for sustainable products and green lifestyle goods — built to feel as natural as the products it sells.</p>
+      <span class="ref-tag" style="border-color:#bbf7d0;color:#16a34a;background:#f0fdf4;" data-en="E-Commerce" data-de="E-Commerce">E-Commerce</span>
+    </div>
+
+    <!-- Digidoo -->
+    <div class="ref-card" style="--ref-color-a:#2563eb;--ref-color-b:#60a5fa;">
+      <div class="ref-logo-mark">
+        <div class="ref-icon" style="background:#dbeafe;">📊</div>
+        <div class="ref-name">Digidoo</div>
+      </div>
+      <p class="ref-tagline" data-en="A modern platform for tracking digital learning progress and competency grids — making student development visible for teachers, students, and parents alike." data-de="Eine moderne Plattform für digitale Lernfortschritte und Kompetenzraster – Schülerentwicklung sichtbar für Lehrkräfte, Schüler und Eltern.">A modern platform for tracking digital learning progress and competency grids — making student development visible for teachers, students, and parents alike.</p>
+      <span class="ref-tag" style="border-color:#bfdbfe;color:#2563eb;background:#eff6ff;" data-en="EdTech" data-de="EdTech">EdTech</span>
+    </div>
+
+    <!-- easily -->
+    <div class="ref-card" style="--ref-color-a:#f59e0b;--ref-color-b:#fcd34d;">
+      <div class="ref-logo-mark">
+        <div class="ref-icon" style="background:#fef3c7;">⚡</div>
+        <div class="ref-name" style="font-style:italic;font-weight:400;">easily</div>
+      </div>
+      <p class="ref-tagline" data-en="A friendly, approachable website that takes the confusion out of EV charging — making electric vehicle charging super easy for everyday drivers." data-de="Eine freundliche, zugängliche Website, die die Verwirrung rund ums E-Auto-Laden beseitigt – und Elektroauto-Laden für alle einfach macht.">A friendly, approachable website that takes the confusion out of EV charging — making electric vehicle charging super easy for everyday drivers.</p>
+      <span class="ref-tag" style="border-color:#fde68a;color:#b45309;background:#fffbeb;" data-en="CleanTech" data-de="CleanTech">CleanTech</span>
+    </div>
+
+  </div>
+</section>
+
 <!-- PITCH DECK -->
 <section class="pitch" id="pitch">
   <div class="section-label" style="text-align:center" data-en="Sales tool" data-de="Verkaufstool">Sales tool</div>
@@ -1292,7 +1432,7 @@
         <div class="slide slide-cover active" id="slide-0">
           <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:40px 40px;"></div>
           <div style="position:relative;z-index:1;">
-            <div class="slide-cover-logo">PageUp<span class="dot"></span></div>
+            <div class="slide-cover-logo"><em style="font-style:italic;font-weight:400;opacity:0.75;">Page</em><span style="font-weight:900;">Up</span></div>
             <div class="slide-cover-tagline" data-en="Websites for small businesses" data-de="Websites für kleine Unternehmen">Websites for small businesses</div>
             <div class="slide-cover-title" data-en="Your business deserves<br>to be found online." data-de="Ihr Unternehmen verdient es,<br>online gefunden zu werden.">Your business deserves<br>to be found online.</div>
           </div>
@@ -1452,7 +1592,7 @@
 <!-- FOOTER -->
 <footer>
   <div>
-    <div class="footer-logo">PageUp<span style="display:inline-block;width:5px;height:5px;background:var(--ink);border-radius:50%;margin-bottom:2px;margin-left:1px;"></span></div>
+    <div class="footer-logo"><span style="font-style:italic;font-weight:400;opacity:0.7;">Page</span><span style="font-weight:900;">Up</span></div>
     <p style="margin-top:0.3rem;" data-en="Websites for small businesses · English & Deutsch" data-de="Websites für kleine Unternehmen · Englisch & Deutsch">Websites for small businesses · English & Deutsch</p>
   </div>
   <ul class="footer-links">
