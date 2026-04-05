@@ -1720,8 +1720,10 @@
       window.scrollY > 20 ? 'var(--border)' : 'transparent';
   });
 
-  // Init
-  setLang('en');
+  // Auto-detect language from browser/region
+const browserLang = navigator.language || navigator.userLanguage || 'en';
+const isGerman = browserLang.toLowerCase().startsWith('de');
+setLang(isGerman ? 'de' : 'en');
 </script>
 </body>
 </html>
