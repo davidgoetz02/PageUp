@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PageUp — Websites for Small Businesses</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2318181b'/><text x='4' y='24' font-family='Georgia,serif' font-weight='900' font-size='20' fill='white'>P</text><text x='15' y='24' font-family='Georgia,serif' font-weight='900' font-size='20' fill='white'>U</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -795,30 +796,7 @@
 
   .deck.fullscreen .deck-counter { color: rgba(255,255,255,0.5); }
 
-  /* Fullscreen toggle button */
-  .deck-fs-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    width: 28px; height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--mid);
-    transition: all 0.2s;
-    font-size: 0.75rem;
-  }
-
-  .deck-fs-btn:hover { background: var(--ink); color: white; border-color: var(--ink); }
-
-  .deck.fullscreen .deck-fs-btn {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.2);
-    color: white;
-  }
-
-  .deck.fullscreen .deck-fs-btn:hover { background: rgba(255,255,255,0.3); }
+  .deck-fs-btn { display: none; }
 
   /* Progress bar inside deck */
   .deck-progress {
@@ -1661,11 +1639,6 @@
         <div class="deck-controls">
           <button class="deck-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>←</button>
           <button class="deck-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
-          <button class="deck-fs-btn" id="fsBtn" onclick="toggleFullscreen()" title="Fullscreen">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-            </svg>
-          </button>
         </div>
       </div>
 
@@ -1853,7 +1826,7 @@
             </div>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
               <a href="#contact" class="btn btn-dark" data-en="Let's talk →" data-de="Gespräch vereinbaren →">Let's talk →</a>
-              <a href="#pricing" class="btn btn-ghost" data-en="See all plans" data-de="Alle Pakete">See all plans</a>
+              <a href="#pricing" class="btn" style="background:rgba(255,255,255,0.12);color:white;border:1.5px solid rgba(255,255,255,0.3);" data-en="See all plans" data-de="Alle Pakete">See all plans</a>
             </div>
           </div>
         </div>
@@ -2019,34 +1992,10 @@
 
   function changeSlide(dir) { goToSlide(Math.max(0, Math.min(total - 1, current + dir))); }
 
-  // Fullscreen
-  function toggleFullscreen() {
-    const deck = document.getElementById('mainDeck');
-    const btn = document.getElementById('fsBtn');
-    const isFs = deck.classList.toggle('fullscreen');
-    // Update icon
-    btn.innerHTML = isFs
-      ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>`
-      : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>`;
-    // Prevent page scroll in fullscreen
-    document.body.style.overflow = isFs ? 'hidden' : '';
-  }
-
-  // Keyboard nav (only when deck is focused / fullscreen)
+  // Keyboard nav
   document.addEventListener('keydown', e => {
-    const deck = document.getElementById('mainDeck');
-    if (!deck.classList.contains('fullscreen') && document.activeElement !== deck) return;
     if (e.key === 'ArrowRight' && current < total - 1) changeSlide(1);
     if (e.key === 'ArrowLeft' && current > 0) changeSlide(-1);
-    if (e.key === 'Escape' && deck.classList.contains('fullscreen')) toggleFullscreen();
-  });
-
-  // Always allow arrow keys when fullscreen
-  document.addEventListener('keydown', e => {
-    const deck = document.getElementById('mainDeck');
-    if (!deck.classList.contains('fullscreen')) return;
-    if (e.key === 'ArrowRight') { e.preventDefault(); if (current < total - 1) changeSlide(1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); if (current > 0) changeSlide(-1); }
   });
 
   // Touch swipe
