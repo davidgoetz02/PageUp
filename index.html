@@ -410,13 +410,13 @@
   /* ── PRICING ── */
   .pricing {
     padding: 6rem 2rem;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
   .plans {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     margin-top: 1rem;
   }
@@ -558,7 +558,41 @@
 
   .plan.featured .btn-plan:hover { opacity: 0.9; }
 
-  .plan-note {
+  .plan.enterprise {
+    background: var(--surface);
+    border-color: var(--border);
+    border-style: dashed;
+  }
+
+  .plan.enterprise .plan-price {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .plan.enterprise .plan-name { color: var(--ink-soft); }
+
+  .plan.enterprise .btn-enterprise {
+    width: 100%;
+    justify-content: center;
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    border-radius: var(--r);
+    padding: 0.75rem;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.85rem;
+    display: block;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    cursor: pointer;
+  }
+
+  .plan.enterprise .btn-enterprise:hover {
+    background: var(--ink);
+    color: var(--white);
+  }
     text-align: center;
     font-size: 0.8rem;
     color: var(--mid);
@@ -1129,7 +1163,54 @@
     flex: 1;
   }
 
-  .ref-tag {
+  .ref-screenshot {
+    width: calc(100% + 4rem);
+    margin: -2rem -2rem 1.5rem -2rem;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.97);
+  }
+
+  .ref-card:hover .ref-screenshot img { transform: scale(1.03); }
+
+  .ref-screenshot-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+  }
+
+  .ref-card:hover .ref-screenshot-overlay { background: rgba(0,0,0,0.35); }
+
+  .ref-visit-btn {
+    background: white;
+    color: var(--ink);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s, transform 0.3s;
+    letter-spacing: 0.02em;
+  }
+
+  .ref-card:hover .ref-visit-btn { opacity: 1; transform: none; }
     display: inline-block;
     font-size: 0.65rem;
     font-weight: 500;
@@ -1145,7 +1226,7 @@
   @media (max-width: 768px) {
     nav { padding: 0 1.2rem; }
     .nav-links { display: none; }
-    .steps, .why-grid, .plans, .ref-logos { grid-template-columns: 1fr; }
+    .steps, .why-grid, .plans, .ref-logos { grid-template-columns: 1fr 1fr; }
     .problem-stats, .solution-grid, .mini-plans { grid-template-columns: 1fr 1fr; }
     .slide { padding: 2.5rem; min-height: auto; }
     .form-row { grid-template-columns: 1fr; }
@@ -1156,6 +1237,7 @@
   @media (max-width: 480px) {
     .problem-stats, .mini-plans { grid-template-columns: 1fr; }
     .solution-grid { grid-template-columns: 1fr; }
+    .steps, .why-grid, .plans, .ref-logos { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -1187,9 +1269,9 @@
       <em data-en="online." data-de="gefunden zu werden.">online.</em>
     </h1>
 
-    <p class="hero-sub" data-en="We build fast, professional websites for small businesses — in days, not months. Starting at just €49/month, all-inclusive." data-de="Wir bauen schnelle, professionelle Websites für kleine Unternehmen – in Tagen, nicht Monaten. Ab nur €49/Monat, alles inklusive.">
+    <p class="hero-sub" data-en="We build fast, professional websites for small businesses — in days, not months. Starting at just €29/month, all-inclusive." data-de="Wir bauen schnelle, professionelle Websites für kleine Unternehmen – in Tagen, nicht Monaten. Ab nur €29/Monat, alles inklusive.">
       We build fast, professional websites for small businesses —
-      in days, not months. Starting at just €49/month, all-inclusive.
+      in days, not months. Starting at just €29/month, all-inclusive.
     </p>
 
     <div class="hero-actions">
@@ -1257,6 +1339,23 @@
 
   <div class="plans reveal">
 
+    <!-- One-Pager -->
+    <div class="plan">
+      <div class="plan-name" data-en="One-Pager" data-de="One-Pager">One-Pager</div>
+      <div class="plan-price">€29</div>
+      <div class="plan-period" data-en="per month" data-de="pro Monat">per month</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li data-en="Single scroll page" data-de="Einzelne Scroll-Seite">Single scroll page</li>
+        <li data-en="Mobile-optimised design" data-de="Mobiloptimiertes Design">Mobile-optimised design</li>
+        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
+        <li data-en="Contact form" data-de="Kontaktformular">Contact form</li>
+        <li data-en="1 small update / month" data-de="1 kleine Aktualisierung / Monat">1 small update / month</li>
+        <li data-en="Email support" data-de="E-Mail-Support">Email support</li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost" style="width:100%;justify-content:center;" data-en="Get started" data-de="Jetzt starten">Get started</a>
+    </div>
+
     <!-- Starter -->
     <div class="plan">
       <div class="plan-name">Starter</div>
@@ -1293,23 +1392,24 @@
       <a href="#contact" class="btn-plan" data-en="Get started →" data-de="Jetzt starten →">Get started →</a>
     </div>
 
-    <!-- Pro -->
-    <div class="plan">
-      <div class="plan-name">Pro</div>
-      <div class="plan-price">€199</div>
-      <div class="plan-period" data-en="per month" data-de="pro Monat">per month</div>
+    <!-- Enterprise -->
+    <div class="plan enterprise">
+      <div class="plan-name" data-en="Enterprise" data-de="Enterprise">Enterprise</div>
+      <div class="plan-price" data-en="On request" data-de="Auf Anfrage">On request</div>
+      <div class="plan-period" data-en="custom quote" data-de="individuelles Angebot">custom quote</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li data-en="Unlimited pages" data-de="Unbegrenzte Seiten">Unlimited pages</li>
         <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
         <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
-        <li data-en="Unlimited small updates" data-de="Unbegrenzte kleine Updates">Unlimited small updates</li>
+        <li data-en="Unlimited updates" data-de="Unbegrenzte Updates">Unlimited updates</li>
         <li data-en="Monthly content refresh" data-de="Monatliche Inhaltsaktualisierung">Monthly content refresh</li>
         <li data-en="Full SEO optimisation" data-de="Vollständige SEO-Optimierung">Full SEO optimisation</li>
         <li data-en="Analytics dashboard" data-de="Analytics-Dashboard">Analytics dashboard</li>
+        <li data-en="Dedicated account manager" data-de="Persönlicher Ansprechpartner">Dedicated account manager</li>
         <li data-en="Phone + priority support" data-de="Telefon- & Prioritätssupport">Phone + priority support</li>
       </ul>
-      <a href="#contact" class="btn btn-ghost" style="width:100%;justify-content:center;" data-en="Get started" data-de="Jetzt starten">Get started</a>
+      <a href="#contact" class="btn-enterprise" data-en="Get a quote →" data-de="Angebot anfragen →">Get a quote →</a>
     </div>
 
   </div>
@@ -1325,7 +1425,7 @@
     </div>
   </div>
 
-  <p class="plan-note" data-en='Need something bigger? Webshops, booking systems, or multi-language sites are available as custom quotes. <a href="#contact" style="color:var(--ink);">Get in touch →</a>' data-de='Brauchen Sie mehr? Webshops, Buchungssysteme oder mehrsprachige Seiten sind als individuelle Angebote verfügbar. <a href="#contact" style="color:var(--ink);">Kontakt aufnehmen →</a>'>Need something bigger? Webshops, booking systems, or multi-language sites are available as custom quotes. <a href="#contact" style="color:var(--ink);">Get in touch →</a></p>
+  <p class="plan-note" data-en='Not sure which plan fits? <a href="#contact" style="color:var(--ink);">Get in touch →</a> and we\'ll recommend the right one for your business.' data-de='Nicht sicher, welches Paket passt? <a href="#contact" style="color:var(--ink);">Kontakt aufnehmen →</a> – wir empfehlen das Richtige für Ihr Unternehmen.'>Not sure which plan fits? <a href="#contact" style="color:var(--ink);">Get in touch →</a> and we'll recommend the right one for your business.</p>
 </section>
 
 <!-- WHY PAGEUP -->
@@ -1377,34 +1477,58 @@
   <div class="ref-logos reveal">
 
     <!-- allesNATUR -->
-    <div class="ref-card" style="--ref-color-a:#16a34a;--ref-color-b:#4ade80;">
+    <a class="ref-card" href="https://allesnatur.shop" target="_blank" rel="noopener" style="--ref-color-a:#16a34a;--ref-color-b:#4ade80; text-decoration:none; color:inherit;">
+      <div class="ref-screenshot">
+        <img src="https://api.screenshotone.com/take?url=https://allesnatur.shop&viewport_width=1280&viewport_height=800&device_scale_factor=1&format=jpg&image_quality=80&access_key=public" 
+             onerror="this.parentElement.style.background='linear-gradient(135deg,#dcfce7,#bbf7d0)';this.style.display='none'" 
+             alt="allesNATUR.shop Screenshot" loading="lazy">
+        <div class="ref-screenshot-overlay">
+          <span class="ref-visit-btn" data-en="Visit site ↗" data-de="Website besuchen ↗">Visit site ↗</span>
+        </div>
+      </div>
       <div class="ref-logo-mark">
         <div class="ref-icon" style="background:#dcfce7;">🌿</div>
         <div class="ref-name">allesNATUR<span style="font-weight:300;font-style:italic;">.shop</span></div>
       </div>
-      <p class="ref-tagline" data-en="A clean, conversion-focused online shop for sustainable products and green lifestyle goods — built to feel as natural as the products it sells." data-de="Ein sauberer, conversionstarker Onlineshop für nachhaltige Produkte und Green-Lifestyle-Artikel – so natürlich gestaltet wie die Produkte selbst.">A clean, conversion-focused online shop for sustainable products and green lifestyle goods — built to feel as natural as the products it sells.</p>
+      <p class="ref-tagline" data-en="Sustainable products & green lifestyle — a clean WooCommerce shop built for nature-conscious Austrian consumers." data-de="Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.">Sustainable products & green lifestyle — a clean WooCommerce shop built for nature-conscious Austrian consumers.</p>
       <span class="ref-tag" style="border-color:#bbf7d0;color:#16a34a;background:#f0fdf4;" data-en="E-Commerce" data-de="E-Commerce">E-Commerce</span>
-    </div>
+    </a>
 
     <!-- Digidoo -->
-    <div class="ref-card" style="--ref-color-a:#2563eb;--ref-color-b:#60a5fa;">
+    <a class="ref-card" href="https://digidoo.at" target="_blank" rel="noopener" style="--ref-color-a:#2563eb;--ref-color-b:#60a5fa; text-decoration:none; color:inherit;">
+      <div class="ref-screenshot">
+        <img src="https://api.screenshotone.com/take?url=https://digidoo.at&viewport_width=1280&viewport_height=800&device_scale_factor=1&format=jpg&image_quality=80&access_key=public" 
+             onerror="this.parentElement.style.background='linear-gradient(135deg,#dbeafe,#bfdbfe)';this.style.display='none'" 
+             alt="Digidoo Screenshot" loading="lazy">
+        <div class="ref-screenshot-overlay">
+          <span class="ref-visit-btn" data-en="Visit site ↗" data-de="Website besuchen ↗">Visit site ↗</span>
+        </div>
+      </div>
       <div class="ref-logo-mark">
         <div class="ref-icon" style="background:#dbeafe;">📊</div>
         <div class="ref-name">Digidoo</div>
       </div>
-      <p class="ref-tagline" data-en="A modern platform for tracking digital learning progress and competency grids — making student development visible for teachers, students, and parents alike." data-de="Eine moderne Plattform für digitale Lernfortschritte und Kompetenzraster – Schülerentwicklung sichtbar für Lehrkräfte, Schüler und Eltern.">A modern platform for tracking digital learning progress and competency grids — making student development visible for teachers, students, and parents alike.</p>
+      <p class="ref-tagline" data-en="Digital learning progress & competency grids for Austrian schools — a Graz-based EdTech startup now used in 100+ schools across Austria, Germany & Switzerland." data-de="Digitale Lernfortschritte & Kompetenzraster für österreichische Schulen – ein Grazer EdTech-Startup, das bereits in über 100 Schulen in Österreich, Deutschland und der Schweiz eingesetzt wird.">Digital learning progress & competency grids for Austrian schools — a Graz-based EdTech startup now used in 100+ schools across Austria, Germany & Switzerland.</p>
       <span class="ref-tag" style="border-color:#bfdbfe;color:#2563eb;background:#eff6ff;" data-en="EdTech" data-de="EdTech">EdTech</span>
-    </div>
+    </a>
 
     <!-- easily -->
-    <div class="ref-card" style="--ref-color-a:#f59e0b;--ref-color-b:#fcd34d;">
+    <a class="ref-card" href="https://easily.energy" target="_blank" rel="noopener" style="--ref-color-a:#f59e0b;--ref-color-b:#fcd34d; text-decoration:none; color:inherit;">
+      <div class="ref-screenshot">
+        <img src="https://api.screenshotone.com/take?url=https://easily.energy&viewport_width=1280&viewport_height=800&device_scale_factor=1&format=jpg&image_quality=80&access_key=public" 
+             onerror="this.parentElement.style.background='linear-gradient(135deg,#fef3c7,#fde68a)';this.style.display='none'" 
+             alt="easily Screenshot" loading="lazy">
+        <div class="ref-screenshot-overlay">
+          <span class="ref-visit-btn" data-en="Visit site ↗" data-de="Website besuchen ↗">Visit site ↗</span>
+        </div>
+      </div>
       <div class="ref-logo-mark">
         <div class="ref-icon" style="background:#fef3c7;">⚡</div>
         <div class="ref-name" style="font-style:italic;font-weight:400;">easily</div>
       </div>
-      <p class="ref-tagline" data-en="A friendly, approachable website that takes the confusion out of EV charging — making electric vehicle charging super easy for everyday drivers." data-de="Eine freundliche, zugängliche Website, die die Verwirrung rund ums E-Auto-Laden beseitigt – und Elektroauto-Laden für alle einfach macht.">A friendly, approachable website that takes the confusion out of EV charging — making electric vehicle charging super easy for everyday drivers.</p>
+      <p class="ref-tagline" data-en="Making electric vehicle charging super easy — a friendly, conversion-focused website for an Austrian CleanTech company simplifying EV infrastructure." data-de="Elektroauto-Laden ganz einfach machen – eine freundliche, conversionstarke Website für ein österreichisches CleanTech-Unternehmen, das die E-Ladeinfrastruktur vereinfacht.">Making electric vehicle charging super easy — a friendly, conversion-focused website for an Austrian CleanTech company simplifying EV infrastructure.</p>
       <span class="ref-tag" style="border-color:#fde68a;color:#b45309;background:#fffbeb;" data-en="CleanTech" data-de="CleanTech">CleanTech</span>
-    </div>
+    </a>
 
   </div>
 </section>
@@ -1486,7 +1610,18 @@
         <div class="slide slide-pricing" id="slide-3">
           <div class="slide-label" data-en="Transparent pricing" data-de="Transparente Preise">Transparent pricing</div>
           <h2 data-en="Simple plans.<br>No surprises." data-de="Einfache Pakete.<br>Keine Überraschungen.">Simple plans.<br>No surprises.</h2>
-          <div class="mini-plans">
+          <div class="mini-plans" style="grid-template-columns:repeat(4,1fr);">
+            <div class="mini-plan">
+              <div class="mini-plan-name" data-en="One-Pager" data-de="One-Pager">One-Pager</div>
+              <div class="mini-plan-price">€29</div>
+              <div class="mini-plan-period" data-en="per month" data-de="pro Monat">per month</div>
+              <ul>
+                <li data-en="1 scroll page" data-de="1 Scroll-Seite">1 scroll page</li>
+                <li data-en="Hosting & SSL" data-de="Hosting & SSL">Hosting & SSL</li>
+                <li data-en="1 update / month" data-de="1 Update / Monat">1 update / month</li>
+                <li data-en="Contact form" data-de="Kontaktformular">Contact form</li>
+              </ul>
+            </div>
             <div class="mini-plan">
               <div class="mini-plan-name">Starter</div>
               <div class="mini-plan-price">€49</div>
@@ -1509,15 +1644,15 @@
                 <li data-en="SEO setup" data-de="SEO-Einrichtung">SEO setup</li>
               </ul>
             </div>
-            <div class="mini-plan">
-              <div class="mini-plan-name">Pro</div>
-              <div class="mini-plan-price">€199</div>
-              <div class="mini-plan-period" data-en="per month" data-de="pro Monat">per month</div>
+            <div class="mini-plan" style="border-style:dashed;">
+              <div class="mini-plan-name" data-en="Enterprise" data-de="Enterprise">Enterprise</div>
+              <div class="mini-plan-price" style="font-size:1.1rem;margin-top:0.3rem;" data-en="On request" data-de="Auf Anfrage">On request</div>
+              <div class="mini-plan-period" data-en="custom quote" data-de="Auf Anfrage">custom quote</div>
               <ul>
                 <li data-en="Unlimited pages" data-de="Unbegrenzte Seiten">Unlimited pages</li>
                 <li data-en="Unlimited updates" data-de="Unbegrenzte Updates">Unlimited updates</li>
-                <li data-en="Full SEO" data-de="Vollständiges SEO">Full SEO</li>
-                <li data-en="Analytics" data-de="Analysen">Analytics</li>
+                <li data-en="Full SEO + Analytics" data-de="SEO + Analytics">Full SEO + Analytics</li>
+                <li data-en="Account manager" data-de="Ansprechpartner">Account manager</li>
               </ul>
             </div>
           </div>
@@ -1573,9 +1708,10 @@
       <label data-en="Which plan interests you?" data-de="Welches Paket interessiert Sie?">Which plan interests you?</label>
       <select id="planSelect">
         <option value="" disabled selected data-en="— select a plan —" data-de="— Paket auswählen —">— select a plan —</option>
+        <option data-en="One-Pager — €29/mo" data-de="One-Pager — €29/Monat">One-Pager — €29/mo</option>
         <option data-en="Starter — €49/mo" data-de="Starter — €49/Monat">Starter — €49/mo</option>
         <option data-en="Business — €99/mo" data-de="Business — €99/Monat">Business — €99/mo</option>
-        <option data-en="Pro — €199/mo" data-de="Pro — €199/Monat">Pro — €199/mo</option>
+        <option data-en="Enterprise — custom quote" data-de="Enterprise — individuelles Angebot">Enterprise — custom quote</option>
         <option data-en="Not sure yet" data-de="Noch nicht sicher">Not sure yet</option>
       </select>
     </div>
@@ -1655,10 +1791,11 @@
     const sel = document.getElementById('planSelect');
     if (sel) {
       sel.options[0].text = lang === 'de' ? '— Paket auswählen —' : '— select a plan —';
-      sel.options[1].text = lang === 'de' ? 'Starter — €49/Monat' : 'Starter — €49/mo';
-      sel.options[2].text = lang === 'de' ? 'Business — €99/Monat' : 'Business — €99/mo';
-      sel.options[3].text = lang === 'de' ? 'Pro — €199/Monat' : 'Pro — €199/mo';
-      sel.options[4].text = lang === 'de' ? 'Noch nicht sicher' : 'Not sure yet';
+      sel.options[1].text = lang === 'de' ? 'One-Pager — €29/Monat' : 'One-Pager — €29/mo';
+      sel.options[2].text = lang === 'de' ? 'Starter — €49/Monat' : 'Starter — €49/mo';
+      sel.options[3].text = lang === 'de' ? 'Business — €99/Monat' : 'Business — €99/mo';
+      sel.options[4].text = lang === 'de' ? 'Enterprise — individuelles Angebot' : 'Enterprise — custom quote';
+      sel.options[5].text = lang === 'de' ? 'Noch nicht sicher' : 'Not sure yet';
     }
 
     // Re-sync pitch deck current slide text (already handled by data attrs above)
@@ -1720,10 +1857,8 @@
       window.scrollY > 20 ? 'var(--border)' : 'transparent';
   });
 
-  // Auto-detect language from browser/region
-const browserLang = navigator.language || navigator.userLanguage || 'en';
-const isGerman = browserLang.toLowerCase().startsWith('de');
-setLang(isGerman ? 'de' : 'en');
+  // Init
+  setLang('en');
 </script>
 </body>
 </html>
