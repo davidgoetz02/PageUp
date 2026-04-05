@@ -1186,7 +1186,7 @@
 
   .reveal.in { opacity: 1; transform: none; }
 
-  /* ── REFERENCES ── */
+  /* ── REFERENCES (clean card style) ── */
   .references {
     padding: 6rem 2rem;
     background: var(--white);
@@ -1196,7 +1196,7 @@
   .ref-logos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 1.2rem;
     max-width: 900px;
     margin: 0 auto;
   }
@@ -1204,11 +1204,11 @@
   .ref-card {
     border: 1.5px solid var(--border);
     border-radius: calc(var(--r) * 2);
-    padding: 2rem;
+    padding: 1.8rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+    gap: 0.9rem;
+    transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
     background: var(--white);
     position: relative;
     overflow: hidden;
@@ -1222,7 +1222,7 @@
     background: linear-gradient(to right, var(--ref-color-a, var(--border)), var(--ref-color-b, var(--border)));
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.4s ease;
+    transition: transform 0.35s ease;
   }
 
   .ref-card:hover {
@@ -1233,100 +1233,50 @@
 
   .ref-card:hover::before { transform: scaleX(1); }
 
-  .ref-logo-mark {
+  .ref-top {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-  }
-
-  .ref-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
+    gap: 0.9rem;
   }
 
   .ref-name {
     font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 1.05rem;
-    letter-spacing: -0.02em;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
     color: var(--ink);
-    font-variation-settings: 'opsz' 20;
-    line-height: 1.2;
+    font-variation-settings: 'opsz' 16;
+    display: block;
+    margin-bottom: 0.25rem;
   }
 
   .ref-tagline {
     font-size: 0.8rem;
     color: var(--mid);
-    line-height: 1.6;
+    line-height: 1.65;
+    font-weight: 300;
     flex: 1;
   }
 
-  .ref-screenshot {
-    width: calc(100% + 4rem);
-    margin: -2rem -2rem 1.5rem -2rem;
-    height: 160px;
-    overflow: hidden;
-    position: relative;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ref-screenshot img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    display: block;
-    transition: transform 0.5s ease;
-    filter: brightness(0.97);
-  }
-
-  .ref-card:hover .ref-screenshot img { transform: scale(1.03); }
-
-  .ref-screenshot-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s;
-  }
-
-  .ref-card:hover .ref-screenshot-overlay { background: rgba(0,0,0,0.35); }
-
-  .ref-visit-btn {
-    background: white;
-    color: var(--ink);
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.45rem 1rem;
-    border-radius: 100px;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.3s, transform 0.3s;
-    letter-spacing: 0.02em;
-  }
-
-  .ref-card:hover .ref-visit-btn { opacity: 1; transform: none; }
-
   .ref-tag {
     display: inline-block;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 0.25rem 0.6rem;
+    padding: 0.22rem 0.55rem;
     border-radius: 4px;
     border: 1px solid var(--border);
     color: var(--mid);
     background: var(--surface);
-    align-self: flex-start;
+  }
+
+  .ref-link-row {
+    font-size: 0.75rem;
+    color: var(--amber);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-top: auto;
   }
   @media (max-width: 768px) {
     nav { padding: 0 1.2rem; }
@@ -1567,63 +1517,48 @@
 <!-- REFERENCES -->
 <section class="references" id="references">
   <div class="section-label" style="text-align:center" data-en="Happy clients" data-de="Zufriedene Kunden">Happy clients</div>
-  <h2 class="section-title reveal" data-en="Websites we've built" data-de="Websites, die wir gebaut haben">Websites we've built</h2>
-  <p class="section-sub reveal" data-en="From online shops to edtech platforms — small businesses in every industry." data-de="Von Onlineshops bis Edtech-Plattformen – kleine Unternehmen in jeder Branche.">From online shops to edtech platforms — small businesses in every industry.</p>
+  <h2 class="section-title reveal" data-en="Websites we've built" data-de="Websites, die wir gebaut haben">Websites, die wir gebaut haben</h2>
+  <p class="section-sub reveal" data-en="From online shops to edtech platforms — small businesses in every industry." data-de="Von Onlineshops bis EdTech-Plattformen – kleine Unternehmen in jeder Branche.">Von Onlineshops bis EdTech-Plattformen – kleine Unternehmen in jeder Branche.</p>
 
   <div class="ref-logos reveal">
 
     <!-- allesNATUR -->
     <a class="ref-card" href="https://allesnatur.shop" target="_blank" rel="noopener" style="--ref-color-a:#16a34a;--ref-color-b:#4ade80; text-decoration:none; color:inherit;">
-      <div class="ref-screenshot">
-        <img src="https://api.screenshotone.com/take?url=https://allesnatur.shop&viewport_width=1280&viewport_height=800&device_scale_factor=1&format=jpg&image_quality=80&access_key=public" 
-             onerror="this.parentElement.style.background='linear-gradient(135deg,#dcfce7,#bbf7d0)';this.style.display='none'" 
-             alt="allesNATUR.shop Screenshot" loading="lazy">
-        <div class="ref-screenshot-overlay">
-          <span class="ref-visit-btn" data-en="Visit site ↗" data-de="Website besuchen ↗">Visit site ↗</span>
+      <div class="ref-top">
+        <div class="ref-icon" style="background:#dcfce7;width:40px;height:40px;font-size:1.2rem;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🌿</div>
+        <div>
+          <div class="ref-name">allesNATUR<span style="font-weight:300;font-style:italic;">.shop</span></div>
+          <span class="ref-tag" style="border-color:#bbf7d0;color:#16a34a;background:#f0fdf4;" data-en="E-Commerce" data-de="E-Commerce">E-Commerce</span>
         </div>
       </div>
-      <div class="ref-logo-mark">
-        <div class="ref-icon" style="background:#dcfce7;width:36px;height:36px;font-size:1.1rem;">🌿</div>
-        <div class="ref-name">allesNATUR<span style="font-weight:300;font-style:italic;">.shop</span></div>
-      </div>
-      <p class="ref-tagline" data-en="Sustainable products & green lifestyle — a clean WooCommerce shop built for nature-conscious Austrian consumers." data-de="Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.">Sustainable products & green lifestyle — a clean WooCommerce shop built for nature-conscious Austrian consumers.</p>
-      <span class="ref-tag" style="border-color:#bbf7d0;color:#16a34a;background:#f0fdf4;" data-en="E-Commerce" data-de="E-Commerce">E-Commerce</span>
+      <p class="ref-tagline" data-en="Sustainable products & green lifestyle — a clean WooCommerce shop for nature-conscious Austrian consumers." data-de="Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.">Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.</p>
+      <div class="ref-link-row">allesnatur.shop ↗</div>
     </a>
 
     <!-- Digidoo -->
     <a class="ref-card" href="https://digidoo.at" target="_blank" rel="noopener" style="--ref-color-a:#2563eb;--ref-color-b:#60a5fa; text-decoration:none; color:inherit;">
-      <div class="ref-screenshot">
-        <img src="https://api.screenshotone.com/take?url=https://digidoo.at&viewport_width=1280&viewport_height=800&device_scale_factor=1&format=jpg&image_quality=80&access_key=public" 
-             onerror="this.parentElement.style.background='linear-gradient(135deg,#dbeafe,#bfdbfe)';this.style.display='none'" 
-             alt="Digidoo Screenshot" loading="lazy">
-        <div class="ref-screenshot-overlay">
-          <span class="ref-visit-btn" data-en="Visit site ↗" data-de="Website besuchen ↗">Visit site ↗</span>
+      <div class="ref-top">
+        <div class="ref-icon" style="background:#dbeafe;width:40px;height:40px;font-size:1.2rem;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">📊</div>
+        <div>
+          <div class="ref-name">Digidoo</div>
+          <span class="ref-tag" style="border-color:#bfdbfe;color:#2563eb;background:#eff6ff;" data-en="EdTech" data-de="EdTech">EdTech</span>
         </div>
       </div>
-      <div class="ref-logo-mark">
-        <div class="ref-icon" style="background:#dbeafe;width:36px;height:36px;font-size:1.1rem;">📊</div>
-        <div class="ref-name">Digidoo</div>
-      </div>
-      <p class="ref-tagline" data-en="Digital learning progress & competency grids for Austrian schools — a Graz-based EdTech startup now used in 100+ schools across Austria, Germany & Switzerland." data-de="Digitale Lernfortschritte & Kompetenzraster für österreichische Schulen – ein Grazer EdTech-Startup, das bereits in über 100 Schulen in Österreich, Deutschland und der Schweiz eingesetzt wird.">Digital learning progress & competency grids for Austrian schools — a Graz-based EdTech startup now used in 100+ schools across Austria, Germany & Switzerland.</p>
-      <span class="ref-tag" style="border-color:#bfdbfe;color:#2563eb;background:#eff6ff;" data-en="EdTech" data-de="EdTech">EdTech</span>
+      <p class="ref-tagline" data-en="Digital learning progress & competency grids — a Graz EdTech startup now in 100+ schools across Austria, Germany & Switzerland." data-de="Digitale Lernfortschritte & Kompetenzraster – ein Grazer EdTech-Startup, bereits in über 100 Schulen in AT, DE & CH.">Digitale Lernfortschritte & Kompetenzraster – ein Grazer EdTech-Startup, bereits in über 100 Schulen in AT, DE & CH.</p>
+      <div class="ref-link-row">digidoo.at ↗</div>
     </a>
 
     <!-- easily -->
     <a class="ref-card" href="https://easily.energy" target="_blank" rel="noopener" style="--ref-color-a:#f59e0b;--ref-color-b:#fcd34d; text-decoration:none; color:inherit;">
-      <div class="ref-screenshot">
-        <img src="https://api.screenshotone.com/take?url=https://easily.energy&viewport_width=1280&viewport_height=800&device_scale_factor=1&format=jpg&image_quality=80&access_key=public" 
-             onerror="this.parentElement.style.background='linear-gradient(135deg,#fef3c7,#fde68a)';this.style.display='none'" 
-             alt="easily Screenshot" loading="lazy">
-        <div class="ref-screenshot-overlay">
-          <span class="ref-visit-btn" data-en="Visit site ↗" data-de="Website besuchen ↗">Visit site ↗</span>
+      <div class="ref-top">
+        <div class="ref-icon" style="background:#fef3c7;width:40px;height:40px;font-size:1.2rem;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">⚡</div>
+        <div>
+          <div class="ref-name" style="font-style:italic;font-weight:400;">easily</div>
+          <span class="ref-tag" style="border-color:#fde68a;color:#b45309;background:#fffbeb;" data-en="CleanTech" data-de="CleanTech">CleanTech</span>
         </div>
       </div>
-      <div class="ref-logo-mark">
-        <div class="ref-icon" style="background:#fef3c7;width:36px;height:36px;font-size:1.1rem;">⚡</div>
-        <div class="ref-name" style="font-style:italic;font-weight:400;">easily</div>
-      </div>
-      <p class="ref-tagline" data-en="Making electric vehicle charging super easy — a friendly, conversion-focused website for an Austrian CleanTech company simplifying EV infrastructure." data-de="Elektroauto-Laden ganz einfach machen – eine freundliche, conversionstarke Website für ein österreichisches CleanTech-Unternehmen, das die E-Ladeinfrastruktur vereinfacht.">Making electric vehicle charging super easy — a friendly, conversion-focused website for an Austrian CleanTech company simplifying EV infrastructure.</p>
-      <span class="ref-tag" style="border-color:#fde68a;color:#b45309;background:#fffbeb;" data-en="CleanTech" data-de="CleanTech">CleanTech</span>
+      <p class="ref-tagline" data-en="Making EV charging super easy — a friendly website for an Austrian CleanTech company simplifying e-mobility." data-de="Elektroauto-Laden ganz einfach machen – eine freundliche Website für ein österreichisches CleanTech-Unternehmen.">Elektroauto-Laden ganz einfach machen – eine freundliche Website für ein österreichisches CleanTech-Unternehmen.</p>
+      <div class="ref-link-row">easily.energy ↗</div>
     </a>
 
   </div>
@@ -1631,9 +1566,9 @@
 
 <!-- PITCH DECK -->
 <section class="pitch" id="pitch">
-  <div class="section-label" style="text-align:center" data-en="Sales tool" data-de="Verkaufstool">Sales tool</div>
-  <h2 class="section-title" data-en="Prospect pitch deck" data-de="Präsentation für Interessenten">Prospect pitch deck</h2>
-  <p class="section-sub" data-en="Use when visiting a client. Hit fullscreen for the full presentation experience." data-de="Beim Kundenbesuch einsetzen. Vollbild für das volle Präsentationserlebnis.">Use when visiting a client. Hit fullscreen for the full presentation experience.</p>
+  <div class="section-label" style="text-align:center" data-en="Our process" data-de="Unser Prozess">Our process</div>
+  <h2 class="section-title" data-en="See how PageUp works —<br>step by step." data-de="So funktioniert PageUp —<br>Schritt für Schritt.">See how PageUp works —<br>step by step.</h2>
+  <p class="section-sub" data-en="From first conversation to live website — here's exactly what happens." data-de="Vom ersten Gespräch bis zur fertigen Website – hier ist genau was passiert.">From first conversation to live website — here's exactly what happens.</p>
 
   <div class="deck-container reveal">
     <div class="deck" id="mainDeck">
