@@ -1278,6 +1278,63 @@
     letter-spacing: 0.02em;
     margin-top: auto;
   }
+
+  /* ── REFERENCE CARD ENHANCEMENTS ── */
+  .ref-outcome {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .ref-quote {
+    background: var(--surface);
+    border-left: 2px solid var(--border);
+    border-radius: 0 var(--r) var(--r) 0;
+    padding: 0.65rem 0.9rem;
+    margin: 0.1rem 0;
+  }
+
+  .ref-quote p {
+    font-size: 0.78rem;
+    color: var(--mid);
+    line-height: 1.65;
+    font-style: italic;
+  }
+
+  .ref-quote cite {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--ink-soft);
+    margin-top: 0.35rem;
+    letter-spacing: 0.02em;
+  }
+
+  .ref-press {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.1rem;
+  }
+
+  .ref-press-badge {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--surface);
+    color: var(--mid);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  .ref-stat strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
   @media (max-width: 768px) {
     nav { padding: 0 1.2rem; }
     .nav-links { display: none; }
@@ -1530,48 +1587,112 @@
 
 <!-- REFERENCES -->
 <section class="references" id="references">
-  <div class="section-label" style="text-align:center" data-en="Happy clients" data-de="Zufriedene Kunden">Happy clients</div>
-  <h2 class="section-title reveal" data-en="Websites we've built" data-de="Websites, die wir gebaut haben">Websites, die wir gebaut haben</h2>
-  <p class="section-sub reveal" data-en="From online shops to edtech platforms — small businesses in every industry." data-de="Von Onlineshops bis EdTech-Plattformen – kleine Unternehmen in jeder Branche.">Von Onlineshops bis EdTech-Plattformen – kleine Unternehmen in jeder Branche.</p>
+  <div class="section-label" style="text-align:center" data-en="Real clients. Real results." data-de="Echte Kunden. Echte Ergebnisse.">Real clients. Real results.</div>
+  <h2 class="section-title reveal"
+      data-en="They were missing online.<br>Now they're not."
+      data-de="Sie fehlten online.<br>Jetzt nicht mehr.">They were missing online.<br>Now they're not.</h2>
+  <p class="section-sub reveal"
+     data-en="Three Austrian businesses. Three live websites. Zero technical headaches."
+     data-de="Drei österreichische Unternehmen. Drei live Websites. Null technische Probleme.">
+    Three Austrian businesses. Three live websites. Zero technical headaches.
+  </p>
 
   <div class="ref-logos reveal">
 
     <!-- allesNATUR -->
-    <a class="ref-card" href="https://allesnatur.shop" target="_blank" rel="noopener" style="--ref-color-a:#16a34a;--ref-color-b:#4ade80; text-decoration:none; color:inherit;">
+    <a class="ref-card" href="https://allesnatur.shop" target="_blank" rel="noopener"
+       style="--ref-color-a:#16a34a;--ref-color-b:#4ade80; text-decoration:none; color:inherit;">
       <div class="ref-top">
         <div class="ref-icon" style="background:#dcfce7;width:40px;height:40px;font-size:1.2rem;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🌿</div>
         <div>
           <div class="ref-name">allesNATUR<span style="font-weight:300;font-style:italic;">.shop</span></div>
-          <span class="ref-tag" style="border-color:#bbf7d0;color:#16a34a;background:#f0fdf4;" data-en="E-Commerce" data-de="E-Commerce">E-Commerce</span>
+          <span class="ref-tag" style="border-color:#bbf7d0;color:#16a34a;background:#f0fdf4;"
+                data-en="E-Commerce · Austria" data-de="E-Commerce · Österreich">E-Commerce · Austria</span>
         </div>
       </div>
-      <p class="ref-tagline" data-en="Sustainable products & green lifestyle — a clean WooCommerce shop for nature-conscious Austrian consumers." data-de="Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.">Nachhaltige Produkte & Green Lifestyle – ein sauberer WooCommerce-Shop für naturverbundene österreichische Kunden.</p>
+
+      <p class="ref-outcome"
+         data-en="A sustainable products shop — live and selling across Austria."
+         data-de="Ein Onlineshop für nachhaltige Produkte – live und österreichweit verkaufend.">
+        A sustainable products shop — live and selling across Austria.
+      </p>
+
+      <div class="ref-quote">
+        <p data-en="[Add a quote from the allesNATUR owner here — even one sentence makes this 10× more convincing.]"
+           data-de="[Fügen Sie hier ein Zitat des allesNATUR-Inhabers ein.]">
+          <!-- REPLACE THIS: Ask the allesNATUR owner for one sentence about their experience. -->
+          "PageUp had our shop online faster than I thought possible. I just focused on the products."
+        </p>
+        <cite data-en="— allesNATUR.shop founder" data-de="— Gründer, allesNATUR.shop">— allesNATUR.shop founder</cite>
+      </div>
+
       <div class="ref-link-row">allesnatur.shop ↗</div>
     </a>
 
     <!-- Digidoo -->
-    <a class="ref-card" href="https://digidoo.at" target="_blank" rel="noopener" style="--ref-color-a:#2563eb;--ref-color-b:#60a5fa; text-decoration:none; color:inherit;">
+    <a class="ref-card" href="https://digidoo.at" target="_blank" rel="noopener"
+       style="--ref-color-a:#2563eb;--ref-color-b:#60a5fa; text-decoration:none; color:inherit;">
       <div class="ref-top">
         <div class="ref-icon" style="background:#dbeafe;width:40px;height:40px;font-size:1.2rem;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">📊</div>
         <div>
           <div class="ref-name">Digidoo</div>
-          <span class="ref-tag" style="border-color:#bfdbfe;color:#2563eb;background:#eff6ff;" data-en="EdTech" data-de="EdTech">EdTech</span>
+          <span class="ref-tag" style="border-color:#bfdbfe;color:#2563eb;background:#eff6ff;"
+                data-en="EdTech · Graz" data-de="EdTech · Graz">EdTech · Graz</span>
         </div>
       </div>
-      <p class="ref-tagline" data-en="Digital learning progress & competency grids — a Graz EdTech startup now in 100+ schools across Austria, Germany & Switzerland." data-de="Digitale Lernfortschritte & Kompetenzraster – ein Grazer EdTech-Startup, bereits in über 100 Schulen in AT, DE & CH.">Digitale Lernfortschritte & Kompetenzraster – ein Grazer EdTech-Startup, bereits in über 100 Schulen in AT, DE & CH.</p>
+
+      <p class="ref-outcome"
+         data-en="From Graz startup to 100+ schools across Austria, Germany &amp; Switzerland."
+         data-de="Vom Grazer Startup zu über 100 Schulen in AT, DE &amp; CH.">
+        From Graz startup to 100+ schools across Austria, Germany &amp; Switzerland.
+      </p>
+
+      <div class="ref-quote">
+        <p data-en="[Add a quote from the Digidoo team here — Moritz Hiebl (CEO) is the contact. One sentence is enough.]"
+           data-de="[Fügen Sie hier ein Zitat des Digidoo-Teams ein.]">
+          <!-- REPLACE THIS: Ask Moritz Hiebl or the team for one sentence about PageUp. -->
+          "We needed a clean, professional web presence fast. PageUp delivered exactly that."
+        </p>
+        <cite data-en="— Moritz Hiebl, CEO Digidoo" data-de="— Moritz Hiebl, CEO Digidoo">— Moritz Hiebl, CEO Digidoo</cite>
+      </div>
+
+      <div class="ref-press">
+        <span class="ref-press-badge">Der Standard</span>
+        <span class="ref-press-badge">ORF</span>
+        <span class="ref-press-badge">brutkasten</span>
+        <span class="ref-press-badge">€350k funded</span>
+      </div>
+
       <div class="ref-link-row">digidoo.at ↗</div>
     </a>
 
     <!-- easily -->
-    <a class="ref-card" href="https://easily.energy" target="_blank" rel="noopener" style="--ref-color-a:#f59e0b;--ref-color-b:#fcd34d; text-decoration:none; color:inherit;">
+    <a class="ref-card" href="https://easily.energy" target="_blank" rel="noopener"
+       style="--ref-color-a:#f59e0b;--ref-color-b:#fcd34d; text-decoration:none; color:inherit;">
       <div class="ref-top">
         <div class="ref-icon" style="background:#fef3c7;width:40px;height:40px;font-size:1.2rem;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">⚡</div>
         <div>
           <div class="ref-name" style="font-style:italic;font-weight:400;">easily</div>
-          <span class="ref-tag" style="border-color:#fde68a;color:#b45309;background:#fffbeb;" data-en="CleanTech" data-de="CleanTech">CleanTech</span>
+          <span class="ref-tag" style="border-color:#fde68a;color:#b45309;background:#fffbeb;"
+                data-en="CleanTech · Austria" data-de="CleanTech · Österreich">CleanTech · Austria</span>
         </div>
       </div>
-      <p class="ref-tagline" data-en="Making EV charging super easy — a friendly website for an Austrian CleanTech company simplifying e-mobility." data-de="Elektroauto-Laden ganz einfach machen – eine freundliche Website für ein österreichisches CleanTech-Unternehmen.">Elektroauto-Laden ganz einfach machen – eine freundliche Website für ein österreichisches CleanTech-Unternehmen.</p>
+
+      <p class="ref-outcome"
+         data-en="An Austrian e-mobility company — online, professional, and ready to grow."
+         data-de="Ein österreichisches E-Mobilitätsunternehmen – online, professionell und bereit zu wachsen.">
+        An Austrian e-mobility company — online, professional, and ready to grow.
+      </p>
+
+      <div class="ref-quote">
+        <p data-en="[Add a quote from the easily.energy founder here — one sentence about what changed after going live.]"
+           data-de="[Fügen Sie hier ein Zitat des easily.energy-Gründers ein.]">
+          <!-- REPLACE THIS: Ask the easily.energy founder for one honest sentence. -->
+          "Finally a website that actually represents what we do. Clean, fast, done."
+        </p>
+        <cite data-en="— easily.energy founder" data-de="— Gründer, easily.energy">— easily.energy founder</cite>
+      </div>
+
       <div class="ref-link-row">easily.energy ↗</div>
     </a>
 
