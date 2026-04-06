@@ -1918,47 +1918,88 @@
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div class="section-label" data-en="Get in touch" data-de="Kontakt aufnehmen">Get in touch</div>
-  <h2 class="section-title reveal" data-en="Let's build something." data-de="Lassen Sie uns loslegen.">Let's build something.</h2>
-  <p class="section-sub reveal" style="margin-bottom:0" data-en="Tell us about your business and we'll have a mock-up ready within 48 hours." data-de="Erzählen Sie uns von Ihrem Unternehmen und wir haben innerhalb von 48 Stunden ein Mock-up fertig.">Tell us about your business and we'll have a mock-up ready within 48 hours.</p>
+  <div class="section-label" data-en="Get your free mock-up" data-de="Kostenloses Mock-up anfordern">Get your free mock-up</div>
+  <h2 class="section-title reveal"
+      data-en="Want to see your website<br>before you commit?"
+      data-de="Möchten Sie Ihre Website<br>sehen, bevor Sie entscheiden?">
+    Want to see your website<br>before you commit?
+  </h2>
+  <p class="section-sub reveal" style="margin-bottom:0"
+     data-en="Tell us your name, business, and how to reach you. We'll have a working preview ready within 48 hours — free, no strings attached."
+     data-de="Sagen Sie uns Ihren Namen, Ihr Unternehmen und wie wir Sie erreichen. Wir haben innerhalb von 48 Stunden eine fertige Vorschau – kostenlos, völlig unverbindlich.">
+    Tell us your name, business, and how to reach you. We'll have a working preview ready within 48 hours — free, no strings attached.
+  </p>
 
   <div class="contact-form reveal">
-    <div class="form-row">
-      <div class="fg">
-        <label data-en="First name" data-de="Vorname">First name</label>
-        <input type="text" placeholder="Max">
+
+    <!-- Success state (hidden by default) -->
+    <div id="formSuccess" style="display:none; text-align:center; padding: 2rem 1rem;">
+      <div style="font-size:2rem; margin-bottom:1rem;">✓</div>
+      <h3 style="font-family:var(--font-head); font-weight:700; font-size:1.3rem; margin-bottom:0.5rem;"
+          data-en="We'll be in touch within 48 hours."
+          data-de="Wir melden uns innerhalb von 48 Stunden.">
+        We'll be in touch within 48 hours.
+      </h3>
+      <p style="color:var(--mid); font-size:0.9rem;"
+         data-en="Check your inbox — your free mock-up is on its way."
+         data-de="Prüfen Sie Ihren Posteingang – Ihr kostenloses Mock-up ist unterwegs.">
+        Check your inbox — your free mock-up is on its way.
+      </p>
+    </div>
+
+    <!-- Form (shown by default) -->
+    <div id="formFields">
+      <div class="form-row">
+        <div class="fg">
+          <label data-en="Your name" data-de="Ihr Name">Your name</label>
+          <input type="text" id="fieldName" name="name"
+                 placeholder="Max Mustermann" autocomplete="name" required>
+        </div>
+        <div class="fg">
+          <label data-en="Business name" data-de="Unternehmensname">Business name</label>
+          <input type="text" id="fieldBiz" name="business"
+                 placeholder="e.g. Bäckerei Müller" required>
+        </div>
       </div>
       <div class="fg">
-        <label data-en="Last name" data-de="Nachname">Last name</label>
-        <input type="text" placeholder="Mustermann">
+        <label>Email</label>
+        <input type="email" id="fieldEmail" name="email"
+               placeholder="you@yourbusiness.com" autocomplete="email" required>
       </div>
+      <div class="fg">
+        <label data-en="Anything else we should know? (optional)"
+               data-de="Noch etwas, das wir wissen sollten? (optional)">
+          Anything else we should know? (optional)
+        </label>
+        <textarea id="fieldMsg" name="message"
+                  placeholder="e.g. I run a hair salon in Vienna and have no website yet."
+                  style="height:90px;resize:none;"></textarea>
+      </div>
+
+      <!-- Error message (hidden by default) -->
+      <div id="formError" style="display:none; background:#fef2f2; border:1px solid #fecaca; border-radius:var(--r); padding:0.75rem 1rem; margin-bottom:1rem;">
+        <p style="color:#dc2626; font-size:0.82rem; margin:0;"
+           data-en="Something went wrong. Please try again or email us directly."
+           data-de="Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.">
+          Something went wrong. Please try again or email us directly.
+        </p>
+      </div>
+
+      <button class="btn btn-dark" id="submitBtn"
+              style="width:100%;justify-content:center;"
+              onclick="handleContact(event)"
+              data-en="Get my free mock-up →"
+              data-de="Mein kostenloses Mock-up anfordern →">
+        Get my free mock-up →
+      </button>
+
+      <p style="text-align:center; font-size:0.75rem; color:var(--mid); margin-top:1rem; line-height:1.6;"
+         data-en="No commitment required. No invoice until your site is live and you're happy."
+         data-de="Keine Verpflichtung. Keine Rechnung, bis Ihre Website live und Sie zufrieden sind.">
+        No commitment required. No invoice until your site is live and you're happy.
+      </p>
     </div>
-    <div class="fg">
-      <label data-en="Business name" data-de="Unternehmensname">Business name</label>
-      <input type="text" id="bizPlaceholder" placeholder="e.g. Bäckerei Müller">
-    </div>
-    <div class="fg">
-      <label>Email</label>
-      <input type="email" placeholder="you@yourbusiness.com">
-    </div>
-    <div class="fg">
-      <label data-en="Which plan interests you?" data-de="Welches Paket interessiert Sie?">Which plan interests you?</label>
-      <select id="planSelect">
-        <option value="" disabled selected data-en="— select a plan —" data-de="— Paket auswählen —">— select a plan —</option>
-        <option data-en="Starter — €39/mo" data-de="Starter — €39/Monat">Starter — €39/mo</option>
-        <option data-en="Professional — €69/mo" data-de="Professional — €69/Monat">Professional — €69/mo</option>
-        <option data-en="Business — €119/mo" data-de="Business — €119/Monat">Business — €119/mo</option>
-        <option data-en="Enterprise — custom quote" data-de="Enterprise — individuelles Angebot">Enterprise — custom quote</option>
-        <option data-en="Not sure yet" data-de="Noch nicht sicher">Not sure yet</option>
-      </select>
-    </div>
-    <div class="fg">
-      <label data-en="Tell us about your business" data-de="Erzählen Sie uns von Ihrem Unternehmen">Tell us about your business</label>
-      <textarea id="msgPlaceholder" placeholder="What does your business do? Do you have an existing website?"></textarea>
-    </div>
-    <button class="btn btn-dark" id="submitBtn" style="width:100%;justify-content:center;" onclick="handleContact(event)" data-en="Send message →" data-de="Nachricht senden →">
-      Send message →
-    </button>
+
   </div>
 </section>
 
@@ -2016,30 +2057,22 @@
       : 'PageUp — Websites for Small Businesses';
 
     // Update input placeholders
-    const bizPh = document.getElementById('bizPlaceholder');
-    if (bizPh) bizPh.placeholder = lang === 'de' ? 'z.B. Bäckerei Müller' : 'e.g. Bäckerei Müller';
+    const fieldName = document.getElementById('fieldName');
+    if (fieldName) fieldName.placeholder = lang === 'de' ? 'Max Mustermann' : 'Max Mustermann';
 
-    const msgPh = document.getElementById('msgPlaceholder');
-    if (msgPh) msgPh.placeholder = lang === 'de'
-      ? 'Was macht Ihr Unternehmen? Haben Sie bereits eine Website?'
-      : 'What does your business do? Do you have an existing website?';
+    const fieldBiz = document.getElementById('fieldBiz');
+    if (fieldBiz) fieldBiz.placeholder = lang === 'de' ? 'z.B. Bäckerei Müller' : 'e.g. Bäckerei Müller';
 
-    // Update select options
-    const sel = document.getElementById('planSelect');
-    if (sel) {
-      sel.options[0].text = lang === 'de' ? '— Paket auswählen —' : '— select a plan —';
-      sel.options[1].text = lang === 'de' ? 'Starter — €39/Monat' : 'Starter — €39/mo';
-      sel.options[2].text = lang === 'de' ? 'Professional — €69/Monat' : 'Professional — €69/mo';
-      sel.options[3].text = lang === 'de' ? 'Business — €119/Monat' : 'Business — €119/mo';
-      sel.options[4].text = lang === 'de' ? 'Enterprise — individuelles Angebot' : 'Enterprise — custom quote';
-      sel.options[5].text = lang === 'de' ? 'Noch nicht sicher' : 'Not sure yet';
+    const fieldMsg = document.getElementById('fieldMsg');
+    if (fieldMsg) fieldMsg.placeholder = lang === 'de'
+      ? 'z.B. Ich betreibe einen Friseursalon in Wien und habe noch keine Website.'
+      : 'e.g. I run a hair salon in Vienna and have no website yet.';
+
+    // Update submit button (only if not in success state)
+    const btn = document.getElementById('submitBtn');
+    if (btn && !btn.disabled) {
+      btn.textContent = lang === 'de' ? 'Mein kostenloses Mock-up anfordern →' : 'Get my free mock-up →';
     }
-
-    // Re-sync pitch deck current slide text (already handled by data attrs above)
-    // Update submit button confirmation text translation storage
-    window._confirmMsg = lang === 'de'
-      ? '✓ Gesendet! Wir melden uns innerhalb von 48 Stunden.'
-      : '✓ Sent! We\'ll be in touch within 48 hours.';
   }
 
   // ── PITCH DECK ──
@@ -2084,19 +2117,58 @@
   });
 
   // ── CONTACT FORM ──
-  window._confirmMsg = '✓ Sent! We\'ll be in touch within 48 hours.';
+  // ACTION: Replace YOUR_FORM_ID below with your Formspree form ID.
+  // Steps: go to formspree.io → New Form → copy the ID from the endpoint URL.
+  // e.g. if your endpoint is https://formspree.io/f/abcd1234, your ID is abcd1234
+  const FORMSPREE_ID = 'YOUR_FORM_ID';
 
-  function handleContact(e) {
+  async function handleContact(e) {
     e.preventDefault();
+
+    const name    = document.getElementById('fieldName').value.trim();
+    const biz     = document.getElementById('fieldBiz').value.trim();
+    const email   = document.getElementById('fieldEmail').value.trim();
+    const message = document.getElementById('fieldMsg').value.trim();
+
+    // Basic validation
+    if (!name || !biz || !email) {
+      document.getElementById('fieldName').reportValidity();
+      return;
+    }
+
     const btn = document.getElementById('submitBtn');
-    btn.textContent = window._confirmMsg;
-    btn.style.background = '#16a34a';
+    const errEl = document.getElementById('formError');
+    errEl.style.display = 'none';
+
+    // Loading state
     btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = currentLang === 'de' ? 'Nachricht senden →' : 'Send message →';
-      btn.style.background = '';
+    btn.textContent = currentLang === 'de' ? 'Wird gesendet…' : 'Sending…';
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, business: biz, email, message, _language: currentLang })
+      });
+
+      if (res.ok) {
+        // Show success state, hide form fields
+        document.getElementById('formFields').style.display = 'none';
+        const success = document.getElementById('formSuccess');
+        success.style.display = 'block';
+        // Translate success state
+        success.querySelectorAll('[data-en][data-de]').forEach(el => {
+          el.textContent = el.getAttribute('data-' + currentLang);
+        });
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      // Show error, re-enable button
+      errEl.style.display = 'block';
       btn.disabled = false;
-    }, 5000);
+      btn.textContent = currentLang === 'de' ? 'Mein kostenloses Mock-up anfordern →' : 'Get my free mock-up →';
+    }
   }
 
   // ── NAV SCROLL ──
