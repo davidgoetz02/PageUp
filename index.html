@@ -420,9 +420,13 @@
 
   .plans {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1.5rem;
     margin-top: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .plans { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   .plan {
@@ -597,12 +601,108 @@
     background: var(--ink);
     color: var(--white);
   }
+
+  /* plan-note orphan fix */
+  .plan-note {
     text-align: center;
     font-size: 0.8rem;
     color: var(--mid);
     margin-top: 2rem;
     line-height: 1.7;
   }
+
+  /* ── BILLING TOGGLE ── */
+  .billing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .billing-label {
+    font-size: 0.85rem;
+    color: var(--mid);
+    font-weight: 400;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .billing-label.active { color: var(--ink); font-weight: 500; }
+
+  .toggle-track {
+    width: 44px; height: 24px;
+    background: var(--border);
+    border-radius: 100px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .toggle-track.annual { background: var(--ink); }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 18px; height: 18px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+
+  .toggle-track.annual .toggle-thumb { transform: translateX(20px); }
+
+  .annual-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--green-lt);
+    color: var(--green);
+    border: 1px solid #bbf7d0;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+  }
+
+  .plan-price-annual {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 3rem;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.2rem;
+    display: none;
+  }
+
+  .plan-period-wrapper {
+    margin-bottom: 0.4rem;
+  }
+
+  .plan-period-wrapper .plan-period {
+    margin-bottom: 0;
+  }
+
+  /* Reserve height for saving line whether visible or not,
+     so card heights stay consistent across monthly/annual toggle */
+  .plan-saving {
+    font-size: 0.72rem;
+    color: var(--green);
+    font-weight: 500;
+    min-height: 1.4rem;
+    margin-bottom: 1rem;
+    visibility: hidden;
+  }
+
+  .plan.featured .plan-saving { color: #4ade80; }
+
+  body.annual-mode .plan-saving { visibility: visible; }
+
+  body.annual-mode .plan-price { display: none; }
+  body.annual-mode .plan-price-annual { display: block; }
+  body.annual-mode .plan-period-wrapper .plan-period-monthly { display: none; }
+  body.annual-mode .plan-period-wrapper .plan-period-annual { display: inline; }
 
   /* Setup fee callout */
   .setup-callout {
@@ -1360,8 +1460,8 @@
   <a href="#" class="nav-logo"><span class="logo-page">Page</span><span class="logo-up">Up</span></a>
   <ul class="nav-links">
     <li><a href="#how" data-en="How it works" data-de="So funktioniert's">How it works</a></li>
-    <li><a href="#pricing" data-en="Pricing" data-de="Preise">Pricing</a></li>
     <li><a href="#references" data-en="References" data-de="Referenzen">References</a></li>
+    <li><a href="#pricing" data-en="Pricing" data-de="Preise">Pricing</a></li>
     <li><a href="#contact" class="nav-cta" data-en="Get started" data-de="Jetzt starten">Get started</a></li>
   </ul>
   <div class="lang-switch">
@@ -1386,10 +1486,10 @@
     </h1>
 
     <p class="hero-sub"
-       data-en="We'll show you a working preview — free, no strings attached. If you love it, you're online in 7 days. From €39/month, all-inclusive."
-       data-de="Wir zeigen Ihnen eine fertige Vorschau – kostenlos, völlig unverbindlich. Wenn Sie begeistert sind, sind Sie in 7 Tagen online. Ab €39/Monat, alles inklusive.">
+       data-en="We'll show you a working preview — free, no strings attached. If you love it, you're online in 7 days. From €49/month, all-inclusive."
+       data-de="Wir zeigen Ihnen eine fertige Vorschau – kostenlos, völlig unverbindlich. Wenn Sie begeistert sind, sind Sie in 7 Tagen online. Ab €49/Monat, alles inklusive.">
       We'll show you a working preview — <strong style="color:var(--ink-soft);font-weight:500;">free, no strings attached.</strong>
-      If you love it, you're online in 7 days. From €39/month, all-inclusive.
+      If you love it, you're online in 7 days. From €49/month, all-inclusive.
     </p>
 
     <div class="hero-actions">
@@ -1453,134 +1553,6 @@
       <div class="step-tag" data-en="Ongoing" data-de="Laufend">Ongoing</div>
       <h3 data-en="We handle everything" data-de="Wir kümmern uns um alles">We handle everything</h3>
       <p data-en="Hosting, updates, security, and small changes are all included in your monthly fee. Your website stays fresh without you lifting a finger." data-de="Hosting, Updates, Sicherheit und kleine Änderungen sind in Ihrer monatlichen Gebühr enthalten. Ihre Website bleibt aktuell, ohne dass Sie einen Finger rühren müssen.">Hosting, updates, security, and small changes are all included in your monthly fee. Your website stays fresh without you lifting a finger.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="section-label reveal" data-en="Pricing" data-de="Preise">Pricing</div>
-  <h2 class="section-title reveal" data-en="Simple, honest pricing" data-de="Einfache, faire Preise">Simple, honest pricing</h2>
-  <p class="section-sub reveal" data-en="No surprise bills. No hidden fees. Cancel anytime." data-de="Keine versteckten Kosten. Keine Überraschungen. Jederzeit kündbar.">No surprise bills. No hidden fees. Cancel anytime.</p>
-
-  <div class="plans reveal">
-
-    <!-- Starter -->
-    <div class="plan">
-      <div class="plan-name" data-en="Starter" data-de="Starter">Starter</div>
-      <div class="plan-price">€39</div>
-      <div class="plan-period" data-en="per month" data-de="pro Monat">per month</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li data-en="Single scroll page" data-de="Einzelne Scroll-Seite">Single scroll page</li>
-        <li data-en="Mobile-optimised design" data-de="Mobiloptimiertes Design">Mobile-optimised design</li>
-        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
-        <li data-en="Contact form" data-de="Kontaktformular">Contact form</li>
-        <li data-en="1 update / month" data-de="1 Aktualisierung / Monat">1 update / month</li>
-        <li data-en="Email support" data-de="E-Mail-Support">Email support</li>
-      </ul>
-      <a href="#contact" class="btn btn-ghost" style="width:100%;justify-content:center;" data-en="Get started" data-de="Jetzt starten">Get started</a>
-    </div>
-
-    <!-- Professional -->
-    <div class="plan">
-      <div class="plan-name">Professional</div>
-      <div class="plan-price">€69</div>
-      <div class="plan-period" data-en="per month" data-de="pro Monat">per month</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li data-en="Up to 5 pages" data-de="Bis zu 5 Seiten">Up to 5 pages</li>
-        <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
-        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
-        <li data-en="Contact forms & maps" data-de="Kontaktformulare & Karten">Contact forms & maps</li>
-        <li data-en="2 updates / month" data-de="2 Aktualisierungen / Monat">2 updates / month</li>
-        <li data-en="Basic SEO setup" data-de="Basis-SEO-Einrichtung">Basic SEO setup</li>
-        <li data-en="Email support" data-de="E-Mail-Support">Email support</li>
-      </ul>
-      <a href="#contact" class="btn btn-ghost" style="width:100%;justify-content:center;" data-en="Get started" data-de="Jetzt starten">Get started</a>
-    </div>
-
-    <!-- Business (featured) -->
-    <div class="plan featured">
-      <div class="plan-badge" data-en="Most popular" data-de="Am beliebtesten">Most popular</div>
-      <div class="plan-name">Business</div>
-      <div class="plan-price">€119</div>
-      <div class="plan-period" data-en="per month" data-de="pro Monat">per month</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li data-en="Up to 10 pages" data-de="Bis zu 10 Seiten">Up to 10 pages</li>
-        <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
-        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
-        <li data-en="Contact forms, maps & gallery" data-de="Formulare, Karten & Galerie">Contact forms, maps & gallery</li>
-        <li data-en="4 updates / month" data-de="4 Aktualisierungen / Monat">4 updates / month</li>
-        <li data-en="Full SEO optimisation" data-de="Vollständige SEO-Optimierung">Full SEO optimisation</li>
-        <li data-en="Analytics dashboard" data-de="Analytics-Dashboard">Analytics dashboard</li>
-        <li data-en="Priority support" data-de="Prioritätssupport">Priority support</li>
-      </ul>
-      <a href="#contact" class="btn-plan" data-en="Get started →" data-de="Jetzt starten →">Get started →</a>
-    </div>
-
-    <!-- Enterprise -->
-    <div class="plan enterprise">
-      <div class="plan-name" data-en="Enterprise" data-de="Enterprise">Enterprise</div>
-      <div class="plan-price" data-en="On request" data-de="Auf Anfrage">On request</div>
-      <div class="plan-period" data-en="custom quote" data-de="individuelles Angebot">custom quote</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li data-en="Unlimited pages" data-de="Unbegrenzte Seiten">Unlimited pages</li>
-        <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
-        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
-        <li data-en="Unlimited updates" data-de="Unbegrenzte Updates">Unlimited updates</li>
-        <li data-en="Monthly content refresh" data-de="Monatliche Inhaltsaktualisierung">Monthly content refresh</li>
-        <li data-en="Full SEO + Analytics" data-de="Vollständiges SEO + Analytics">Full SEO + Analytics</li>
-        <li data-en="Webshop / booking system" data-de="Webshop / Buchungssystem">Webshop / booking system</li>
-        <li data-en="Dedicated account manager" data-de="Persönlicher Ansprechpartner">Dedicated account manager</li>
-        <li data-en="Phone + priority support" data-de="Telefon- & Prioritätssupport">Phone + priority support</li>
-      </ul>
-      <a href="#contact" class="btn-enterprise" data-en="Get a quote →" data-de="Angebot anfragen →">Get a quote →</a>
-    </div>
-
-  </div>
-
-  <p class="plan-note" data-en='Not sure which plan fits? <a href="#contact" style="color:var(--ink);">Get in touch →</a> and we\'ll recommend the right one for your business.' data-de='Nicht sicher, welches Paket passt? <a href="#contact" style="color:var(--ink);">Kontakt aufnehmen →</a> – wir empfehlen das Richtige für Ihr Unternehmen.'>Not sure which plan fits? <a href="#contact" style="color:var(--ink);">Get in touch →</a> and we'll recommend the right one for your business.</p>
-</section>
-
-<!-- WHY PAGEUP -->
-<section class="why" id="why">
-  <div class="section-label" data-en="Why PageUp" data-de="Warum PageUp">Why PageUp</div>
-  <h2 class="section-title" data-en="Built for small businesses.<br>Not big agencies." data-de="Gemacht für kleine Unternehmen.<br>Nicht für große Agenturen.">Built for small businesses.<br>Not big agencies.</h2>
-  <p class="section-sub" data-en="We know what it's like to run a small business. That's why we made this as painless as possible." data-de="Wir wissen, wie es ist, ein kleines Unternehmen zu führen. Deshalb haben wir das so einfach wie möglich gemacht.">We know what it's like to run a small business. That's why we made this as painless as possible.</p>
-
-  <div class="why-grid reveal">
-    <div class="why-item">
-      <div class="why-icon">⚡</div>
-      <h3 data-en="You see it before you buy it" data-de="Sie sehen es, bevor Sie kaufen">You see it before you buy it</h3>
-      <p data-en="We build a real mock-up of your site before you commit. No guesswork, no expensive surprises." data-de="Wir bauen ein echtes Mock-up Ihrer Website, bevor Sie sich verpflichten. Kein Rätselraten, keine teuren Überraschungen.">We build a real mock-up of your site before you commit. No guesswork, no expensive surprises.</p>
-    </div>
-    <div class="why-item">
-      <div class="why-icon">📱</div>
-      <h3 data-en="Looks great on every device" data-de="Perfekt auf jedem Gerät">Looks great on every device</h3>
-      <p data-en="Every site we build is fully responsive — perfect on mobile, tablet, and desktop from day one." data-de="Jede Website ist vollständig responsive – perfekt auf Handy, Tablet und Desktop ab dem ersten Tag.">Every site we build is fully responsive — perfect on mobile, tablet, and desktop from day one.</p>
-    </div>
-    <div class="why-item">
-      <div class="why-icon">🔒</div>
-      <h3 data-en="We handle the technical stuff" data-de="Wir kümmern uns um die Technik">We handle the technical stuff</h3>
-      <p data-en="Hosting, security updates, backups — you never have to think about any of it." data-de="Hosting, Sicherheitsupdates, Backups – Sie müssen sich um nichts davon kümmern.">Hosting, security updates, backups — you never have to think about any of it.</p>
-    </div>
-    <div class="why-item">
-      <div class="why-icon">🌍</div>
-      <h3 data-en="English & German, no problem" data-de="Englisch & Deutsch, kein Problem">English & German, no problem</h3>
-      <p data-en="We work fluently in both languages. Your website, your customers, your language." data-de="Wir arbeiten fließend in beiden Sprachen. Ihre Website, Ihre Kunden, Ihre Sprache.">We work fluently in both languages. Your website, your customers, your language.</p>
-    </div>
-    <div class="why-item">
-      <div class="why-icon">💬</div>
-      <h3 data-en="A real person you can call" data-de="Ein echter Ansprechpartner">A real person you can call</h3>
-      <p data-en="No ticket systems, no chatbots. You get a direct contact who knows your website inside out." data-de="Kein Ticketsystem, keine Chatbots. Sie bekommen einen direkten Kontakt, der Ihre Website in- und auswendig kennt.">No ticket systems, no chatbots. You get a direct contact who knows your website inside out.</p>
-    </div>
-    <div class="why-item">
-      <div class="why-icon">💶</div>
-      <h3 data-en="No upfront costs — ever" data-de="Keine Vorabkosten — nie">No upfront costs — ever</h3>
-      <p data-en="Pure subscription. No setup fee, no invoice on day one. You pay only when your site is live and you're happy." data-de="Reines Abo. Keine Einrichtungsgebühr, keine Rechnung am ersten Tag. Sie zahlen erst, wenn Ihre Website live ist.">Pure subscription. No setup fee, no invoice on day one. You pay only when your site is live and you're happy.</p>
     </div>
   </div>
 </section>
@@ -1656,13 +1628,6 @@
         <cite data-en="— Moritz Hiebl, CEO Digidoo" data-de="— Moritz Hiebl, CEO Digidoo">— Moritz Hiebl, CEO Digidoo</cite>
       </div>
 
-      <div class="ref-press">
-        <span class="ref-press-badge">Der Standard</span>
-        <span class="ref-press-badge">ORF</span>
-        <span class="ref-press-badge">brutkasten</span>
-        <span class="ref-press-badge">€350k funded</span>
-      </div>
-
       <div class="ref-link-row">digidoo.at ↗</div>
     </a>
 
@@ -1697,6 +1662,209 @@
     </a>
 
   </div>
+</section>
+
+<!-- WHY PAGEUP -->
+<section class="why" id="why">
+  <div class="section-label"
+       data-en="Why PageUp" data-de="Warum PageUp">Why PageUp</div>
+  <h2 class="section-title"
+      data-en="The website you always wanted.<br>Without the agency bill."
+      data-de="Die Website, die Sie immer wollten.<br>Ohne die Agenturrechnung.">
+    The website you always wanted.<br>Without the agency bill.
+  </h2>
+  <p class="section-sub"
+     data-en="No technical knowledge needed. No project management. No surprises."
+     data-de="Kein technisches Wissen nötig. Kein Projektmanagement. Keine Überraschungen.">
+    No technical knowledge needed. No project management. No surprises.
+  </p>
+
+  <div class="why-grid reveal">
+    <div class="why-item">
+      <div class="why-icon">⚡</div>
+      <h3 data-en="You see it before you pay anything"
+          data-de="Sie sehen es, bevor Sie zahlen">
+        You see it before you pay anything
+      </h3>
+      <p data-en="We show up with a working preview of your site — already built. You decide from there. No contract, no invoice, no obligation."
+         data-de="Wir kommen mit einer fertigen Vorschau Ihrer Website. Sie entscheiden dann. Kein Vertrag, keine Rechnung, keine Verpflichtung.">
+        We show up with a working preview of your site — already built. You decide from there. No contract, no invoice, no obligation.
+      </p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📱</div>
+      <h3 data-en="Your customers browse on their phone. Your site looks perfect on it."
+          data-de="Ihre Kunden suchen auf dem Handy. Ihre Website sieht darauf perfekt aus.">
+        Your customers browse on their phone. Your site looks perfect on it.
+      </h3>
+      <p data-en="Every PageUp site is built mobile-first from day one — fast-loading, clean, and easy to navigate on any screen."
+         data-de="Jede PageUp-Website wird von Anfang an für Mobilgeräte gebaut – schnell, sauber und auf jedem Bildschirm leicht zu bedienen.">
+        Every PageUp site is built mobile-first from day one — fast-loading, clean, and easy to navigate on any screen.
+      </p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🔒</div>
+      <h3 data-en="Hosting, backups, security. You'll never think about any of it."
+          data-de="Hosting, Backups, Sicherheit. Sie müssen nie darüber nachdenken.">
+        Hosting, backups, security. You'll never think about any of it.
+      </h3>
+      <p data-en="Everything technical is handled and included in your monthly fee. If something breaks, we fix it — before you even notice."
+         data-de="Alles Technische ist in Ihrer monatlichen Gebühr enthalten. Wenn etwas nicht stimmt, beheben wir es – bevor Sie es bemerken.">
+        Everything technical is handled and included in your monthly fee. If something breaks, we fix it — before you even notice.
+      </p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">💬</div>
+      <h3 data-en="One person. Direct contact. No tickets."
+          data-de="Eine Person. Direkter Kontakt. Kein Ticketsystem.">
+        One person. Direct contact. No tickets.
+      </h3>
+      <p data-en="You get a single point of contact who knows your site inside out. Call, message, done — no support queues, no chatbots."
+         data-de="Sie haben einen Ansprechpartner, der Ihre Website in- und auswendig kennt. Anrufen, schreiben, erledigt – keine Warteschlangen, keine Chatbots.">
+        You get a single point of contact who knows your site inside out. Call, message, done — no support queues, no chatbots.
+      </p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🌍</div>
+      <h3 data-en="Serving Austrian and international customers? We cover both languages."
+          data-de="Österreichische und internationale Kunden? Wir decken beide Sprachen ab.">
+        Serving Austrian and international customers? We cover both languages.
+      </h3>
+      <p data-en="We work fluently in English and German. Your website, your content, your customers — in whichever language they speak."
+         data-de="Wir arbeiten fließend auf Englisch und Deutsch. Ihre Website, Ihre Inhalte, Ihre Kunden – in der Sprache, die sie sprechen.">
+        We work fluently in English and German. Your website, your content, your customers — in whichever language they speak.
+      </p>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">💶</div>
+      <h3 data-en="You pay only when your site is live and you're happy."
+          data-de="Sie zahlen erst, wenn Ihre Website live ist und Sie zufrieden sind.">
+        You pay only when your site is live and you're happy.
+      </h3>
+      <p data-en="No setup fee. No invoice on day one. The first payment comes only after your site goes live and you've approved it."
+         data-de="Keine Einrichtungsgebühr. Keine Rechnung am ersten Tag. Die erste Zahlung kommt erst, nachdem Ihre Website live ist und Sie sie abgenommen haben.">
+        No setup fee. No invoice on day one. The first payment comes only after your site goes live and you've approved it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label reveal" data-en="Pricing" data-de="Preise">Pricing</div>
+  <h2 class="section-title reveal" data-en="Simple, honest pricing" data-de="Einfache, faire Preise">Simple, honest pricing</h2>
+  <p class="section-sub reveal"
+     data-en="No surprise bills. No hidden fees. 6-month minimum term — because good SEO takes time to work."
+     data-de="Keine versteckten Kosten. Keine Überraschungen. 6 Monate Mindestlaufzeit – weil gutes SEO Zeit braucht.">
+    No surprise bills. No hidden fees. 6-month minimum term — because good SEO takes time to work.
+  </p>
+
+  <!-- Annual / Monthly toggle -->
+  <div class="billing-toggle reveal">
+    <span class="billing-label active" id="labelMonthly"
+          data-en="Monthly" data-de="Monatlich">Monthly</span>
+    <div class="toggle-track" id="billingTrack" onclick="toggleBilling()">
+      <div class="toggle-thumb"></div>
+    </div>
+    <span class="billing-label" id="labelAnnual"
+          data-en="Annual" data-de="Jährlich">Annual</span>
+    <span class="annual-badge"
+          data-en="Save 10%" data-de="10% sparen">Save 10%</span>
+  </div>
+
+  <div class="plans reveal">
+
+    <!-- Starter -->
+    <div class="plan">
+      <div class="plan-name" data-en="Starter" data-de="Starter">Starter</div>
+      <div class="plan-price">€49</div>
+      <div class="plan-price-annual">€44</div>
+      <div class="plan-period-wrapper">
+        <span class="plan-period plan-period-monthly" data-en="per month" data-de="pro Monat">per month</span>
+        <span class="plan-period plan-period-annual" style="display:none;" data-en="per month, billed annually" data-de="pro Monat, jährlich abgerechnet">per month, billed annually</span>
+      </div>
+      <div class="plan-saving" data-en="€529/year — saves €59" data-de="€529/Jahr — spart €59">€529/year — saves €59</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li data-en="Single scroll page" data-de="Einzelne Scroll-Seite">Single scroll page</li>
+        <li data-en="Mobile-optimised design" data-de="Mobiloptimiertes Design">Mobile-optimised design</li>
+        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
+        <li data-en="Contact form" data-de="Kontaktformular">Contact form</li>
+        <li data-en="1 update / month" data-de="1 Aktualisierung / Monat">1 update / month</li>
+    <div class="plan">
+      <div class="plan-name">Professional</div>
+      <div class="plan-price">€79</div>
+      <div class="plan-price-annual">€71</div>
+      <div class="plan-period-wrapper">
+        <span class="plan-period plan-period-monthly" data-en="per month" data-de="pro Monat">per month</span>
+        <span class="plan-period plan-period-annual" style="display:none;" data-en="per month, billed annually" data-de="pro Monat, jährlich abgerechnet">per month, billed annually</span>
+      </div>
+      <div class="plan-saving" data-en="€853/year — saves €95" data-de="€853/Jahr — spart €95">€853/year — saves €95</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li data-en="Up to 5 pages" data-de="Bis zu 5 Seiten">Up to 5 pages</li>
+        <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
+        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
+        <li data-en="Contact forms & maps" data-de="Kontaktformulare & Karten">Contact forms & maps</li>
+        <li data-en="2 updates / month" data-de="2 Aktualisierungen / Monat">2 updates / month</li>
+        <li data-en="Basic SEO setup" data-de="Basis-SEO-Einrichtung">Basic SEO setup</li>
+        <li data-en="Email support" data-de="E-Mail-Support">Email support</li>
+      </ul>
+      <a href="#contact" class="btn btn-ghost" style="width:100%;justify-content:center;" data-en="Get started" data-de="Jetzt starten">Get started</a>
+    </div>
+
+    <!-- Business (featured) -->
+    <div class="plan featured">
+      <div class="plan-badge" data-en="Most popular" data-de="Am beliebtesten">Most popular</div>
+      <div class="plan-name">Business</div>
+      <div class="plan-price">€129</div>
+      <div class="plan-price-annual">€116</div>
+      <div class="plan-period-wrapper">
+        <span class="plan-period plan-period-monthly" data-en="per month" data-de="pro Monat">per month</span>
+        <span class="plan-period plan-period-annual" style="display:none;" data-en="per month, billed annually" data-de="pro Monat, jährlich abgerechnet">per month, billed annually</span>
+      </div>
+      <div class="plan-saving" data-en="€1,393/year — saves €155" data-de="€1.393/Jahr — spart €155">€1,393/year — saves €155</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li data-en="Up to 10 pages" data-de="Bis zu 10 Seiten">Up to 10 pages</li>
+        <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
+        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
+        <li data-en="Contact forms, maps & gallery" data-de="Formulare, Karten & Galerie">Contact forms, maps & gallery</li>
+        <li data-en="3 updates / month" data-de="3 Aktualisierungen / Monat">3 updates / month</li>
+        <li data-en="Full SEO optimisation" data-de="Vollständige SEO-Optimierung">Full SEO optimisation</li>
+        <li data-en="Analytics dashboard" data-de="Analytics-Dashboard">Analytics dashboard</li>
+        <li data-en="Priority support" data-de="Prioritätssupport">Priority support</li>
+      </ul>
+      <a href="#contact" class="btn-plan" data-en="Get started →" data-de="Jetzt starten →">Get started →</a>
+    </div>
+
+    <!-- Enterprise -->
+    <div class="plan enterprise">
+      <div class="plan-name" data-en="Enterprise" data-de="Enterprise">Enterprise</div>
+      <div class="plan-price" data-en="On request" data-de="Auf Anfrage">On request</div>
+      <div class="plan-period" data-en="custom quote" data-de="individuelles Angebot">custom quote</div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li data-en="Unlimited pages" data-de="Unbegrenzte Seiten">Unlimited pages</li>
+        <li data-en="Custom design & branding" data-de="Individuelles Design & Branding">Custom design & branding</li>
+        <li data-en="Hosting & SSL included" data-de="Hosting & SSL inklusive">Hosting & SSL included</li>
+        <li data-en="Unlimited updates" data-de="Unbegrenzte Updates">Unlimited updates</li>
+        <li data-en="Monthly content refresh" data-de="Monatliche Inhaltsaktualisierung">Monthly content refresh</li>
+        <li data-en="Full SEO + Analytics" data-de="Vollständiges SEO + Analytics">Full SEO + Analytics</li>
+        <li data-en="Webshop / booking system" data-de="Webshop / Buchungssystem">Webshop / booking system</li>
+        <li data-en="Dedicated account manager" data-de="Persönlicher Ansprechpartner">Dedicated account manager</li>
+        <li data-en="Phone + priority support" data-de="Telefon- & Prioritätssupport">Phone + priority support</li>
+      </ul>
+      <a href="#contact" class="btn-enterprise" data-en="Get a quote →" data-de="Angebot anfragen →">Get a quote →</a>
+    </div>
+
+  </div>
+
+  <p class="plan-note"
+     data-en='Not sure which plan fits? <a href="#contact" style="color:var(--ink);">Get in touch →</a> and we\'ll recommend the right one for your business.'
+     data-de='Nicht sicher, welches Paket passt? <a href="#contact" style="color:var(--ink);">Kontakt aufnehmen →</a> – wir empfehlen das Richtige für Ihr Unternehmen.'>
+    Not sure which plan fits? <a href="#contact" style="color:var(--ink);">Get in touch →</a> and we'll recommend the right one for your business.
+  </p>
 </section>
 
 <!-- PITCH DECK -->
@@ -1808,7 +1976,7 @@
           <div class="mini-plans">
             <div class="mini-plan">
               <div class="mini-plan-name" data-en="Starter" data-de="Starter">Starter</div>
-              <div class="mini-plan-price">€39</div>
+              <div class="mini-plan-price">€49</div>
               <div class="mini-plan-period" data-en="per month" data-de="pro Monat">per month</div>
               <ul>
                 <li data-en="1 scroll page" data-de="1 Scroll-Seite">1 scroll page</li>
@@ -1819,7 +1987,7 @@
             </div>
             <div class="mini-plan">
               <div class="mini-plan-name">Professional</div>
-              <div class="mini-plan-price">€69</div>
+              <div class="mini-plan-price">€79</div>
               <div class="mini-plan-period" data-en="per month" data-de="pro Monat">per month</div>
               <ul>
                 <li data-en="Up to 5 pages" data-de="Bis zu 5 Seiten">Up to 5 pages</li>
@@ -1830,12 +1998,12 @@
             </div>
             <div class="mini-plan hi">
               <div class="mini-plan-name" data-en="Business ⭐" data-de="Business ⭐">Business ⭐</div>
-              <div class="mini-plan-price">€119</div>
+              <div class="mini-plan-price">€129</div>
               <div class="mini-plan-period" data-en="per month" data-de="pro Monat">per month</div>
               <ul>
                 <li data-en="Up to 10 pages" data-de="Bis zu 10 Seiten">Up to 10 pages</li>
                 <li data-en="Full SEO + Analytics" data-de="SEO + Analytics">Full SEO + Analytics</li>
-                <li data-en="4 updates / month" data-de="4 Updates / Monat">4 updates / month</li>
+                <li data-en="3 updates / month" data-de="3 Updates / Monat">3 updates / month</li>
                 <li data-en="Priority support" data-de="Prioritätssupport">Priority support</li>
               </ul>
             </div>
@@ -1898,7 +2066,7 @@
             <h2 data-en="Ready to get<br>found online?" data-de="Bereit, online<br>gefunden zu werden?">Ready to get<br>found online?</h2>
             <p data-en="We've already built a mock-up of your website. Let us show you — no commitment, no cost." data-de="Wir haben bereits ein Mock-up Ihrer Website gebaut. Lassen Sie es uns zeigen – unverbindlich und kostenlos.">We've already built a mock-up of your website. Let us show you — no commitment, no cost.</p>
             <div class="cta-highlight">
-              <p data-en='Pure subscription — <strong>no setup fee</strong>, no surprises. Cancel anytime.' data-de='Reines Abo – <strong>keine Einrichtungsgebühr</strong>, keine Überraschungen. Jederzeit kündbar.'>Pure subscription — <strong>no setup fee</strong>, no surprises. Cancel anytime.</p>
+              <p data-en='Pure subscription — <strong>no setup fee</strong>, no surprises. 6-month minimum term.' data-de='Reines Abo – <strong>keine Einrichtungsgebühr</strong>, keine Überraschungen. 6 Monate Mindestlaufzeit.'>Pure subscription — <strong>no setup fee</strong>, no surprises. 6-month minimum term.</p>
             </div>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
               <a href="#contact" class="btn btn-dark" data-en="Let's talk →" data-de="Gespräch vereinbaren →">Let's talk →</a>
@@ -2169,6 +2337,17 @@
       btn.disabled = false;
       btn.textContent = currentLang === 'de' ? 'Mein kostenloses Mock-up anfordern →' : 'Get my free mock-up →';
     }
+  }
+
+  // ── BILLING TOGGLE ──
+  let isAnnual = false;
+
+  function toggleBilling() {
+    isAnnual = !isAnnual;
+    document.body.classList.toggle('annual-mode', isAnnual);
+    document.getElementById('billingTrack').classList.toggle('annual', isAnnual);
+    document.getElementById('labelMonthly').classList.toggle('active', !isAnnual);
+    document.getElementById('labelAnnual').classList.toggle('active', isAnnual);
   }
 
   // ── NAV SCROLL ──
